@@ -44,7 +44,7 @@
             $(document).ready(function(){
 
                 var header = document.getElementById("newsHeader");
-                    header.innerHTML = "Latest News 15th of February 2018";
+                    header.innerHTML = "Latest News 5th of March 2018";
                    
 
                 var news = document.getElementById("newsEntry");
@@ -54,8 +54,12 @@
 		    */
                     news.innerHTML += "The latest update includes:";
                     news.innerHTML += "<br><br>";
-                    news.innerHTML += "- new race - the <b>Abbai</b> by Wolfgang!<br>Or rather two races, as WotCR and show era Abbai fleets are separate.";
-		    news.innerHTML += "<br><br>";
+                    news.innerHTML += "- A lot of bugfixes.";
+		    news.innerHTML += "<br>";
+                    news.innerHTML += "- A few things cleaned - especially about Centauri. No more Elint Array showing up!";
+		    news.innerHTML += "<br>";
+                    news.innerHTML += "- Possibly some games will be broken... sorry!";
+		    news.innerHTML += "<br>";
                     news.innerHTML += "- a few minor bugs fixed";
                     news.innerHTML += "<br><br>";
                     news.innerHTML += "Enjoy and report BUGS on FB. Also force reload (ctrl+F5) whenever something weird happens.";
