@@ -234,7 +234,7 @@ window.gamedata = {
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
 	    alert(checkResult);
-    }
+    },
 	
 	
     constructFleetList: function(){
