@@ -191,10 +191,35 @@ window.gamedata = {
 	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
+	    var oneOverAllowed = false;
 	    
-	    
-	    
-	    
+	    checkResult += "Deployment restrictions:\n";
+	    checkResult += " - 10% bracket: " + points10 +"/" + limit10 + ": ";
+	    if (points10<=limit10){
+		    checkResult += "OK";
+	    }else{		
+		    if(units10==1 && oneOverAllowed == false){ //only 1 unit, and this exception wasn't used yet
+			oneOverAllowed = true;
+			checkResult += "OK (one single ship is allowed to break limit)";
+		    }else{
+			checkResult += "FAILED! (too many points in this deployment bracket)";
+		    	problemFound = true;
+		    }
+	    }
+	    checkResult += "\n";
+	    checkResult += " - 33% bracket: " + points33 +"/" + limit33 + ": ";
+	    if (points33<=limit33){
+		    checkResult += "OK";
+	    }else{		
+		    if(units33==1 && oneOverAllowed == false){ //only 1 unit, and this exception wasn't used yet
+			oneOverAllowed = true;
+			checkResult += "OK (one single ship is allowed to break limit)";
+		    }else{
+			checkResult += "FAILED! (too many points in this deployment bracket)";
+		    	problemFound = true;
+		    }
+	    }
+	    checkResult += "\n\n";
 	    
 	    
 	    
