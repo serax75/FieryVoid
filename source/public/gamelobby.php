@@ -227,7 +227,7 @@
 			</table>
 			
 			<div><span class="clickable readybutton">READY</span> 
-				<span class="clickable readybutton">CHECK</span> <!--fleet correctness check -->
+				<span class="clickable checkbutton">CHECK</span> <!--fleet correctness check -->
 			</div>
 
 					
