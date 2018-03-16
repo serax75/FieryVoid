@@ -85,7 +85,11 @@ window.gamedata = {
 	    var units33 = 0;
 	    var points10 = 0;
 	    var points33 = 0;
+	    var jumpDrivePresent = false;
+	    var capitalShips = 0;
+	    var customShipPresent = false;
 	    var shipTable = array(); //ShipName->array(rarityLetter->count)
+	    
 	    
 	    for (var i in gamedata.ships){
             	var lship = gamedata.ships[i];
@@ -146,16 +150,29 @@ window.gamedata = {
 		     }
 		     shipTable.push(nHull);
 		}
-		    
+		if (jumpDrivePresent == false){ //if already found there's no point
+			for (var a in lship.systems){
+				var sSystem = lship.systems[a];
+				if (sSystem.name=='jumpEngine') jumpDrivePresent = true;
+			}
+		}
+		if (lship.shipSizeClass >= 3) capitalShips++;
+		if (lship.unofficial) customShipPresent = true;
 		    
 		    
 	    } //end of loop at ships preparing data
 
 	    
-	    
-	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    
 	    
 	    if (problemFound){
