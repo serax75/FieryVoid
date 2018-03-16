@@ -88,6 +88,7 @@ window.gamedata = {
 	    var jumpDrivePresent = false;
 	    var capitalShips = 0;
 	    var customShipPresent = false;
+	    var staticPresent = false;
 	    var shipTable = []; 
 	    
 	    
@@ -158,6 +159,7 @@ window.gamedata = {
 		}
 		if (lship.shipSizeClass >= 3) capitalShips++;
 		if (lship.unofficial) customShipPresent = true;
+		if ((lship.base == true) || (lship.osat == true)) staticPresent = true;
 		    
 		    
 	    } //end of loop at ships preparing data
@@ -181,12 +183,15 @@ window.gamedata = {
 		    checkResult += " NOT present! (at least " + capsRequired + " required)";
 		    problemFound = true;
 	    }
-	    checkResult += "\n";
-	    if (customShipsPresent){
-		   checkResult += "Custom unit(s) present! Opponent's permission required."; 
+	    checkResult += "\n
+	    if (customShipPresent){
+		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 		    
+	    }
+	    if (staticPresent){
+		   checkResult += "Static structures present! They're not allowed in pickup battle."; 
+		   problemFound = true;
 	    }
 	    checkResult += "\n";
-	    
 	    
 	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
