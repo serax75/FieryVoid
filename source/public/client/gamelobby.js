@@ -162,6 +162,32 @@ window.gamedata = {
 		    
 	    } //end of loop at ships preparing data
 
+	    checkResult = "Total fleet limit: " + selectedSlot.points + "\n\n";
+	    
+	    //check: overall fleet traits
+	    checkResult += "Jump engine: ";
+	    if (jumpDrivePresent){
+		    checkResult += " present";
+	    }else{		    
+		    checkResult += " NOT present! (at least one is required)";
+		    problemFound = true;
+	    }
+	    checkResult += "\n";
+	    checkResult += "Capital ships: " + capitalShips + ": ";
+	    var capsRequired = Math.floor(selectedSlot.points/3000);
+	    if (capitalShips >= capsRequired){ //tournament rules: at least 1; changed for scalability
+		    checkResult += "OK";
+	    }else{		    
+		    checkResult += " NOT present! (at least " + capsRequired + " required)";
+		    problemFound = true;
+	    }
+	    checkResult += "\n";
+	    if (customShipsPresent){
+		   checkResult += "Custom unit(s) present! Opponent's permission required."; 
+	    }
+	    checkResult += "\n";
+	    
+	    
 	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
@@ -181,7 +207,7 @@ window.gamedata = {
 		    checkResult = "Overall: OK.\n\n"+checkResult;
 	    }
 	    
-	    checkResult = "FLEET CORRECTNESS REPORT\n"+checkResult;
+	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
 	    alert(checkResult);
     }
 	
