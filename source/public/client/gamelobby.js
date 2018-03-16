@@ -183,7 +183,7 @@ window.gamedata = {
 		    checkResult += " NOT present! (at least " + capsRequired + " required)";
 		    problemFound = true;
 	    }
-	    checkResult += "\n
+	    checkResult += "\n";
 	    if (customShipPresent){
 		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 		    
 	    }
