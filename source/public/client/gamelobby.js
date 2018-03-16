@@ -51,7 +51,124 @@ window.gamedata = {
 		h.appendTo("#fleet");
 		gamedata.calculateFleet();
 	},
-    
+	
+	/*returns ship variant as a single letter*/
+	variantLetter: function(ship){
+		var vLetter = '';		
+		switch(ship.occurence) {
+		    case 'unique':
+			vLetter = 'Q';
+			break;
+		    case 'rare':
+			vLetter = 'R';
+			break;
+		    case 'uncommon':
+			vLetter = 'U';
+			break;
+		    case 'common':
+			vLetter = 'C';
+			break;
+		    default: //assume something atypical
+			vLetter = 'X'; 
+		}	
+		return(vLetter);
+	},
+	
+	/*checks fleet composition and displays alert with result*/
+    checkChoices: function(){
+	    var checkResult = "";
+	    var problemFound = false;
+	    var slotid = gamedata.selectedSlot;
+            var selectedSlot = playerManager.getSlotById(slotid);
+	    
+	    var units10 = 0;
+	    var units33 = 0;
+	    var points10 = 0;
+	    var points33 = 0;
+	    var shipTable = array(); //ShipName->array(rarityLetter->count)
+	    
+	    for (var i in gamedata.ships){
+            	var lship = gamedata.ships[i];
+            	if (lship.slot != slotid) continue;
+		if (lship.limited==10){
+			points10 += lship.pointCost;
+			units10 += 1;
+		}
+		if (lship.limited==33){
+			points33 += lship.pointCost;
+			units33 += 1;
+		}
+		var vLetter = gamedata.variantLetter(lship);
+		var hull = lship.variantOf; 
+		var hullFound;
+		hullFound = false;
+		if (hull == "") hull = lship.shipClass; //ship is either base itself, or base is indicated in variantOf variable
+		for (var j in  shipTable){
+			oHull = shipTable[j];
+			if (oHull.name == hull){
+				hullFound = true;
+				oHull.Total++;
+				switch(vLetter) {
+				    case 'Q':
+					oHull.Q++;
+					break;
+				    case 'R':
+					oHull.R++;
+					break;
+				    case 'U':
+					oHull.U++;
+					break;
+				    case 'Q':
+					oHull.C++;
+					break;
+				    default:
+					nHull.X++;
+			     	}
+			}
+		}
+		if (hullFound == false){
+		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0};
+		    switch(vLetter) {
+			    case 'Q':
+				nHull.Q++;
+				break;
+			    case 'R':
+				nHull.R++;
+				break;
+			    case 'U':
+				nHull.U++;
+				break;
+			    case 'Q':
+				nHull.C++;
+				break;
+			    default:
+				nHull.X++;
+		     }
+		     shipTable.push(nHull);
+		}
+		    
+		    
+		    
+	    } //end of loop at ships preparing data
+
+	    
+	    
+	    
+	    var limit10 = Math.floor(selectedSlot.points*0.1);
+	    var limit33 = Math.floor(selectedSlot.points*0.33);
+	    
+	    
+	    if (problemFound){
+		    checkResult = "Overall: FAILED!\n\n"+checkResult;
+	    }else{
+		    checkResult = "Overall: OK.\n\n"+checkResult;
+	    }
+	    
+	    checkResult = "FLEET CORRECTNESS REPORT\n"+checkResult;
+	    alert(checkResult);
+    }
+	
+	
     constructFleetList: function(){
         
         var slotid = gamedata.selectedSlot;
