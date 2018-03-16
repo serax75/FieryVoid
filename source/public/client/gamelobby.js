@@ -88,7 +88,7 @@ window.gamedata = {
 	    var jumpDrivePresent = false;
 	    var capitalShips = 0;
 	    var customShipPresent = false;
-	    var shipTable = new array(); //ShipName->array(rarityLetter->count)
+	    var shipTable = []; 
 	    
 	    
 	    for (var i in gamedata.ships){
