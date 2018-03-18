@@ -78,6 +78,7 @@ window.gamedata = {
     checkChoices: function(){
 	    var checkResult = "";
 	    var problemFound = false;
+	    var warningFound = false;
 	    var slotid = gamedata.selectedSlot;
             var selectedSlot = playerManager.getSlotById(slotid);
 	    
@@ -158,7 +159,10 @@ window.gamedata = {
 			}
 		}
 		if (lship.shipSizeClass >= 3) capitalShips++;
-		if (lship.unofficial) customShipPresent = true;
+		if (lship.unofficial){
+			customShipPresent = true;
+			warningFound = true;
+		}
 		if ((lship.base == true) || (lship.osat == true)) staticPresent = true;
 		    
 		    
@@ -185,7 +189,8 @@ window.gamedata = {
 	    }
 	    checkResult += "\n";
 	    if (customShipPresent){
-		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 		    
+		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 	
+		warningFound = true;
 	    }
 	    if (staticPresent){
 		   checkResult += "Static structures present! They're not allowed in pickup battle."; 
@@ -231,10 +236,15 @@ window.gamedata = {
 	    
 	    
 	    
+	    if (warningFound){
+		    checkResult = "Unchecked or non-canon elements found - check text for details.\n"+checkResult;
+	    }
+	    checkResult = "\n"+checkResult;
+	    
 	    if (problemFound){
-		    checkResult = "Overall: FAILED!\n\n"+checkResult;
+		    checkResult = "Overall: FAILED!\n"+checkResult;
 	    }else{
-		    checkResult = "Overall: OK.\n\n"+checkResult;
+		    checkResult = "Overall: OK.\n"+checkResult;
 	    }
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
