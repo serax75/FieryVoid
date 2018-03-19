@@ -425,8 +425,10 @@ window.gamedata = {
 	    //alert(checkResult); //alert will be truncated by browser
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
+	    var targetSpan = document.getElementById("fleetchecktxt");
 	    checkResult.replace("\n","<br/>"); //convert newline from text to html display
-	    targetDiv.textContent = checkResult;	    
+	    checkResult += "<br>nowalinia<br />nowalinia2\nnowalinia3";
+	    targetSpan.textContent = checkResult;	    
 	    
 	    alert("Fleet check updated!");
     }, //endof function checkChoices
