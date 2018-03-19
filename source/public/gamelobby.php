@@ -233,7 +233,7 @@
 					
 			
 		</div>
-		<div id="fleetcheck" class="panel large" style="height:400px;display:none;"></div>
+		<div id="fleetcheck" class="panel large" style="display:none;"><span id="fleetchecktxt" style="display:block;"><span></div>
 		
         <div id="globalchat" class="panel large" style="height:150px;">
         <?php 
