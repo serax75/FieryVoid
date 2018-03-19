@@ -281,7 +281,7 @@ window.gamedata = {
 		sumVar = currHull.R + currHull.Q + currHull.U;
 		if (sumVar > 0){
 			checkResult += " - Uncommon/Rare/Unique " + sumVar + " (allowed " +currUlimit+ ")";
-			if (sumVar>currRlimit){
+			if (sumVar>currUlimit){
 				checkResult += " TOO MANY!";
 				problemFound = true;
 			}
