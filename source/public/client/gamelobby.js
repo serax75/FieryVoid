@@ -370,7 +370,7 @@ window.gamedata = {
 		checkResult +=  " - Medium/Heavy Fighters: " + totalFtrCurr;
 	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
 		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
-			checkResult += " FAILURE!";
+			checkResult += " TOO MANY!";
 			problemFound = true;
 		}else{
 			checkResult += " OK";
@@ -382,7 +382,7 @@ window.gamedata = {
 		checkResult +=  " - Heavy Fighters: " + totalFtrCurr;
 	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
 		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
-			checkResult += " FAILURE!";
+			checkResult += " TOO MANY!";
 			problemFound = true;
 		}else{
 			checkResult += " OK";
@@ -394,7 +394,7 @@ window.gamedata = {
 		checkResult +=  " - Other small craft: " + totalFtrCurr;
 	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
 		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
-			checkResult += " FAILURE!";
+			checkResult += " TOO MANY!";
 			problemFound = true;
 		}else{
 			if(totalFtrCurr == 0){
