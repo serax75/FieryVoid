@@ -104,7 +104,7 @@ window.gamedata = {
 	    var totalFtrL = 0;//total light fighters
 	    var totalFtrOther = 0;//total other small craft
 	    
-	    var targetDiv = document.getElementById("fleetcheck");
+	    var targetDiv = document.getElementById("fleetcheckspan");
 	    
 	    for (var i in gamedata.ships){
             	var lship = gamedata.ships[i];
