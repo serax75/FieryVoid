@@ -103,9 +103,7 @@ window.gamedata = {
 	    var totalFtrM = 0;//total medium fighters
 	    var totalFtrL = 0;//total light fighters
 	    var totalFtrOther = 0;//total other small craft
-	    
-	    var targetDiv = document.getElementById("fleetcheckspan");
-	    
+
 	    for (var i in gamedata.ships){
             	var lship = gamedata.ships[i];
             	if (lship.slot != slotid) continue;
@@ -428,10 +426,11 @@ window.gamedata = {
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
 	    checkResult.replace("\n","<br>"); //convert newline from text to html display
-	    targetDiv.text = checkResult;	    
+	    targetDiv.textContent = checkResult;	    
 	    
 	    alert("Fleet check updated!");
     }, //endof function checkChoices
+	
 	
 	
     constructFleetList: function(){
