@@ -311,7 +311,7 @@ window.gamedata = {
 		currUlimit = Math.ceil(currHull.Total/3);
 		sumVar = currHull.R + currHull.Q + currHull.U;
 		if (sumVar > 0){
-			checkResult += " - Uncommon/Rare/Unique " + sumVar + " (allowed " +currUlimit+ ")";
+			checkResult += " - Uncommon/Rare/Unique: " + sumVar + " (allowed " +currUlimit+ ")";
 			if (sumVar>currUlimit){
 				checkResult += " TOO MANY!";
 				problemFound = true;
