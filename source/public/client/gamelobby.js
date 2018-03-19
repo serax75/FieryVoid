@@ -324,9 +324,9 @@ window.gamedata = {
 	    }
 	    
 	    if (problemFound){
-		    checkResult = "Overall: FAILED!\n"+checkResult;
+		    checkResult = "Overall: FAILED!\n\n"+checkResult;
 	    }else{
-		    checkResult = "Overall: OK.\n"+checkResult;
+		    checkResult = "Overall: OK.\n\n"+checkResult;
 	    }
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
