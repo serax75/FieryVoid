@@ -334,6 +334,7 @@ window.gamedata = {
 			warningFound = true;
 			checkResult += "<br>";
 		}  		
+	        checkResult += "<br>";
 	    }
 	    checkResult += "<br>";
 	    
