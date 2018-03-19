@@ -217,7 +217,7 @@ window.gamedata = {
 	    
 	    
 
-	    checkResult = "Total fleet limit: " + selectedSlot.points + "\n\n";
+	    checkResult = "Total fleet limit: " + selectedSlot.points + "<br><br>";
 	    
 	    //check: overall fleet traits
 	    checkResult += "Jump engine: "; //Jump Engine present?
@@ -227,7 +227,7 @@ window.gamedata = {
 		    checkResult += " NOT present! (at least one is required)";
 		    problemFound = true;
 	    }
-	    checkResult += "\n";
+	    checkResult += "<br>";
 	    
 	    checkResult += "Capital ships: " + capitalShips + ": "; //Capital Ship present?
 	    var capsRequired = Math.floor(selectedSlot.points/3000);
@@ -237,11 +237,11 @@ window.gamedata = {
 		    checkResult += " FAILED! (at least " + capsRequired + " required)";
 		    problemFound = true;
 	    }
-	    checkResult += "\n";
+	    checkResult += "<br>";
 	    
 	    //Custom units present?
 	    if (customShipPresent){
-		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 	
+		checkResult += "Custom unit(s) present! Opponent's permission required.<br>"; 	
 		warningFound = true;
 	    }
 	    
@@ -250,7 +250,7 @@ window.gamedata = {
 		   checkResult += "Static structures present! They're not allowed in pickup battle."; 
 		   problemFound = true;
 	    }
-	    checkResult += "\n";
+	    checkResult += "<br>";
 	    
 	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
@@ -269,7 +269,7 @@ window.gamedata = {
 		    	problemFound = true;
 		    }
 	    }
-	    checkResult += "\n";
+	    checkResult += "<br>";
 	    checkResult += " - 33% bracket: " + points33 +"/" + limit33 + ": ";
 	    if (points33<=limit33){
 		    checkResult += "OK";
@@ -283,10 +283,10 @@ window.gamedata = {
 		    }
 	    }
 	    if(points10>0 && totalShips<2){
-		checkResult += "\nRestricted (10%) ship present without escort! Such a rare ship needs to be accompanied by at least one other ship, unless it's Dargan or a Minbari ship.";
+		checkResult += "<br>Restricted (10%) ship present without escort! Such a rare ship needs to be accompanied by at least one other ship, unless it's Dargan or a Minbari ship.";
 		problemFound = true;
 	    }	    
-	    checkResult += "\n\n";
+	    checkResult += "<br><br>";
 	    
 	    //variant restrictions
 	    checkResult += "Variant restrictions:\n";
@@ -297,7 +297,7 @@ window.gamedata = {
 	    var sumVar = 0;
 	    for (var j in  shipTable){
 		var currHull = shipTable[j];
-		checkResult += " " + currHull.name + "\n";			
+		checkResult += " " + currHull.name + "<br>";			
 		checkResult +=  " - Total: " + currHull.Total;
 		if (!currHull.isFtr){ //fighter total is not limited
 		    	checkResult +=  " (allowed " +limitPerHull+ ")";
@@ -316,7 +316,7 @@ window.gamedata = {
 				checkResult += " TOO MANY!";
 				problemFound = true;
 			}
-			checkResult += "\n";
+			checkResult += "<br>";
 		}
 		sumVar = currHull.R + currHull.Q;
 		if (sumVar > 0){
@@ -325,14 +325,14 @@ window.gamedata = {
 				checkResult += " TOO MANY!";
 				problemFound = true;
 			}
-			checkResult += "\n";
+			checkResult += "<br>";
 		}
 		sumVar = currHull.X;
 		if (sumVar > 0){
 			checkResult += " - Special: "+sumVar;
 			checkResult += " CORRECTNESS NOT CHECKED!";
 			warningFound = true;
-			checkResult += "\n";
+			checkResult += "<br>";
 		}  		
 	    }
 	    
@@ -341,10 +341,10 @@ window.gamedata = {
 	    limitUTotal = Math.max(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
-		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).\n" ;
+		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).<br>" ;
 		    problemFound = true;
 	    }	    
-	    checkResult += "\n";
+	    checkResult += "<br>";
 	    
 	    
 	    //fighters!
@@ -353,7 +353,7 @@ window.gamedata = {
 	    var totalFtrPresent = totalFtrH+totalFtrM+totalFtrL;
 	    var totalFtrCurr = 0;
 	    var totalHangarCurr = 0;
-	    checkResult += "Fighters:\n";
+	    checkResult += "Fighters:<br>";
 		checkResult +=  " - Total: " + totalFtrPresent;
 	    	checkResult +=  " (allowed between " +minFtrRequired+ " and " + totalHangarAvailable + ")";
 		if (totalFtrPresent > totalHangarAvailable || totalFtrPresent < minFtrRequired){ //fighter total is not within limits
@@ -362,7 +362,7 @@ window.gamedata = {
 		}else{
 			checkResult += " OK";
 		}
-	        checkResult += "\n";
+	        checkResult += "<br>";
 	    
 	    	totalFtrCurr = totalFtrH+totalFtrM;
 	        totalHangarCurr = totalHangarH+totalHangarM;
@@ -374,7 +374,7 @@ window.gamedata = {
 		}else{
 			checkResult += " OK";
 		}
-	        checkResult += "\n";
+	        checkResult += "<br>";
 	    
 	    	totalFtrCurr = totalFtrH;
 	        totalHangarCurr = totalHangarH;
@@ -386,7 +386,7 @@ window.gamedata = {
 		}else{
 			checkResult += " OK";
 		}
-	        checkResult += "\n";
+	        checkResult += "<br>";
 	    
 	    	totalFtrCurr = totalFtrOther;
 	        totalHangarCurr = totalHangarOther;
@@ -403,19 +403,19 @@ window.gamedata = {
 				warningFound = true;
 			}
 		}
-	        checkResult += "\n";
-	    checkResult += "\n";
+	        checkResult += "<br>";
+	    checkResult += "<br>";
 	
 	
 	    
 	    if (warningFound){
-		    checkResult = "Unchecked or non-canon elements found - check text for details.\n\n"+checkResult;
+		    checkResult = "Unchecked or non-canon elements found - check text for details.<br><br>"+checkResult;
 	    }
 	    
 	    if (problemFound){
-		    checkResult = "Overall: FAILED!\n\n"+checkResult;
+		    checkResult = "Overall: FAILED!<br><br>"+checkResult;
 	    }else{
-		    checkResult = "Overall: OK.\n\n"+checkResult;
+		    checkResult = "Overall: OK.<br><br>"+checkResult;
 	    }
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
@@ -426,8 +426,6 @@ window.gamedata = {
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
 	    var targetSpan = document.getElementById("fleetchecktxt");
-	    //checkResult.replace("\n","<br display=\"block;\" />"); //convert newline from text to html display
-	    checkResult += '<br>nowalinia<br />nowalinia2';
 	    targetSpan.innerHTML = checkResult;	    
 	    
 	    alert("Fleet check updated!");
