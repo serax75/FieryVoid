@@ -104,6 +104,7 @@ window.gamedata = {
 	    var totalFtrL = 0;//total light fighters
 	    var totalFtrOther = 0;//total other small craft
 	    
+	    var targetDiv = document.getElementById("fleetcheck");
 	    
 	    for (var i in gamedata.ships){
             	var lship = gamedata.ships[i];
@@ -420,7 +421,16 @@ window.gamedata = {
 	    }
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
-	    alert(checkResult);
+	    
+	    
+	    
+	    //alert(checkResult); //alert will be truncated by browser
+	    var targetDiv = document.getElementById("fleetcheck");
+	    targetDiv.style.display = "block";
+	    checkResult.replace("\n","<br>"); //convert newline from text to html display
+	    targetDiv.value = checkResult;	    
+	    
+	    alert("Fleet check updated!");
     }, //endof function checkChoices
 	
 	
