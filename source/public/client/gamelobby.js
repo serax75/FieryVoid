@@ -177,8 +177,16 @@ window.gamedata = {
 	            totalShips++;
 	            //check hangar space available...
 		    for(var h in lship.fighters){
-			var hangar = lship.fighters[h];
-			    
+                   	var amount = lship.fighters[i];
+			    if(h == "normal" || h =="heavy"){
+				totalHangarH += amount;
+			    }else if(h=="medium"){ 
+				totalHangarM += amount;
+			    }else if(h=="light" || h=="ultralight"){ 
+				totalHangarL += amount;
+			    }else{ //something other than fighters
+				totalHangarOther += amount;
+			    }
 		    }
 		}else{//note presence of fighters
 			//classify depending on jinking limit...
@@ -341,9 +349,65 @@ window.gamedata = {
 	    
 	    
 	    //fighters!
+	    var totalHangarAvailable = totalHangarH+totalHangarM+totalHangarL;
+	    var minFtrRequired = Math.ceil(totalHangarAvailable/2);
+	    var totalFtrPresent = totalFtrH+totalFtrM+totalFtrL;
+	    var totalFtrCurr = 0;
+	    var totalHangarCurr = 0;
+	    checkResult += "Fighters:\n";
+		checkResult +=  " - Total: " + totalFtrPresent;
+	    	checkResult +=  " (allowed between " +minFtrRequired+ " and " + totalHangarAvailable + ")";
+		if (totalFtrPresent > totalHangarAvailable || totalFtrPresent < minFtrRequired){ //fighter total is not within limits
+			checkResult += " FAILURE!";
+			problemFound = true;
+		}else{
+			checkResult += " OK";
+		}
+	        checkResult += "\n";
 	    
+	    	totalFtrCurr = totalFtrH+totalFtrM;
+	        totalHangarCurr = totalHangarH+totalHangarM;
+		checkResult +=  " - Medium/Heavy Fighters: " + totalFtrCurr;
+	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
+		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
+			checkResult += " FAILURE!";
+			problemFound = true;
+		}else{
+			checkResult += " OK";
+		}
+	        checkResult += "\n";
 	    
+	    	totalFtrCurr = totalFtrH;
+	        totalHangarCurr = totalHangarH;
+		checkResult +=  " - Heavy Fighters: " + totalFtrCurr;
+	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
+		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
+			checkResult += " FAILURE!";
+			problemFound = true;
+		}else{
+			checkResult += " OK";
+		}
+	        checkResult += "\n";
 	    
+	    	totalFtrCurr = totalFtrOther;
+	        totalHangarCurr = totalHangarOther;
+		checkResult +=  " - Other small craft: " + totalFtrCurr;
+	    	checkResult +=  " (allowed up to " + totalHangarCurr + ")";
+		if (totalFtrCurr > totalHangarCurr){ //fighter total is not within limits
+			checkResult += " FAILURE!";
+			problemFound = true;
+		}else{
+			if(totalFtrCurr == 0){
+				checkResult += " OK";
+			}else{
+				checkResult += " WARNING, details cannot be checked automatically";
+				warningFound = true;
+			}
+		}
+	        checkResult += "\n";
+	    checkResult += "\n";
+	
+	
 	    
 	    if (warningFound){
 		    checkResult = "Unchecked or non-canon elements found - check text for details.\n\n"+checkResult;
