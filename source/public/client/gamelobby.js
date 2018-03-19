@@ -426,9 +426,9 @@ window.gamedata = {
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
 	    var targetSpan = document.getElementById("fleetchecktxt");
-	    checkResult.replace("\n","<br display=\"block;\" />"); //convert newline from text to html display
-	    checkResult += '<p>nowalinia</p><p>nowalinia2nowalinia3</p>';
-	    targetSpan.textContent = checkResult;	    
+	    //checkResult.replace("\n","<br display=\"block;\" />"); //convert newline from text to html display
+	    checkResult += '<br>nowalinia<br />nowalinia2';
+	    targetSpan.innerHTML = checkResult;	    
 	    
 	    alert("Fleet check updated!");
     }, //endof function checkChoices
