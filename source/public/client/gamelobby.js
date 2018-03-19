@@ -320,9 +320,8 @@ window.gamedata = {
 	    
 	    
 	    if (warningFound){
-		    checkResult = "Unchecked or non-canon elements found - check text for details.\n"+checkResult;
+		    checkResult = "Unchecked or non-canon elements found - check text for details.\n\n"+checkResult;
 	    }
-	    checkResult = "\n"+checkResult;
 	    
 	    if (problemFound){
 		    checkResult = "Overall: FAILED!\n"+checkResult;
