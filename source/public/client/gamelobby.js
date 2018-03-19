@@ -177,7 +177,7 @@ window.gamedata = {
 	            totalShips++;
 	            //check hangar space available...
 		    for(var h in lship.fighters){
-                   	var amount = lship.fighters[i];
+                   	var amount = lship.fighters[h];
 			    if(h == "normal" || h =="heavy"){
 				totalHangarH += amount;
 			    }else if(h=="medium"){ 
