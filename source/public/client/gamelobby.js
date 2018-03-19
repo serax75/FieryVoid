@@ -425,7 +425,7 @@ window.gamedata = {
 	    //alert(checkResult); //alert will be truncated by browser
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
-	    //checkResult.replace("\n","<br>"); //convert newline from text to html display
+	    checkResult.replace("\n","<br/>"); //convert newline from text to html display
 	    targetDiv.textContent = checkResult;	    
 	    
 	    alert("Fleet check updated!");
