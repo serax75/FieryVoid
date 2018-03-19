@@ -427,7 +427,7 @@ window.gamedata = {
 	    targetDiv.style.display = "block";
 	    var targetSpan = document.getElementById("fleetchecktxt");
 	    checkResult.replace("\n","<br display=\"block;\" />"); //convert newline from text to html display
-	    checkResult += '<br>nowalinia<br  display="block;" />nowalinia2\nnowalinia3';
+	    checkResult += '<p>nowalinia</p><p>nowalinia2nowalinia3</p>';
 	    targetSpan.textContent = checkResult;	    
 	    
 	    alert("Fleet check updated!");
