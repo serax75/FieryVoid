@@ -256,7 +256,7 @@ window.gamedata = {
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
 	    var oneOverAllowed = false;	    
-	    checkResult += "Deployment restrictions:\n";
+	    checkResult += "Deployment restrictions:<br>";
 	    checkResult += " - 10% bracket: " + points10 +"/" + limit10 + ": ";
 	    if (points10<=limit10){
 		    checkResult += "OK";
@@ -289,7 +289,7 @@ window.gamedata = {
 	    checkResult += "<br><br>";
 	    
 	    //variant restrictions
-	    checkResult += "Variant restrictions:\n";
+	    checkResult += "Variant restrictions:<br>";
 	    var limitPerHull = Math.floor(selectedSlot.points/1000); //turnament rules: 3, but it's for 3500 points
 	    limitPerHull = Math.max(limitPerHull,2); //always allow at least 2!
 	    var currRlimit = 0;
@@ -335,6 +335,7 @@ window.gamedata = {
 			checkResult += "<br>";
 		}  		
 	    }
+	    checkResult += "<br>";
 	    
 	    //total Uncommon/Rare units in fleet
 	    var limitUTotal =  Math.floor(selectedSlot.points/1250); //limit Uncommon units per fleet; turnament rules: 2, but it's for 3500 points
@@ -344,7 +345,7 @@ window.gamedata = {
 		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).<br>" ;
 		    problemFound = true;
 	    }	    
-	    checkResult += "<br>";
+	    checkResult += "<br><br>";
 	    
 	    
 	    //fighters!
@@ -418,7 +419,7 @@ window.gamedata = {
 		    checkResult = "Overall: OK.<br><br>"+checkResult;
 	    }
 	    
-	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
+	    checkResult = "FLEET CORRECTNESS REPORT<br>based on tournament rules, modified for scalability.<br><br>"+checkResult;
 	    
 	    
 	    
