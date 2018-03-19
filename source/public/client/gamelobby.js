@@ -95,6 +95,15 @@ window.gamedata = {
 	    var staticPresent = false;
 	    var shipTable = []; 
 	    
+	    var totalHangarH = 0; //hangarspace for heavy fighters
+	    var totalHangarM = 0; //hangarspace for medium fighters
+	    var totalHangarL = 0; //hangarspace for light fighters
+	    var totalHangarOther = 0; //other hangarspace
+	    var totalFtrH = 0;//total heavy fighters
+	    var totalFtrM = 0;//total medium fighters
+	    var totalFtrL = 0;//total light fighters
+	    var totalFtrOther = 0;//total other small craft
+	    
 	    
 	    for (var i in gamedata.ships){
             	var lship = gamedata.ships[i];
@@ -139,10 +148,9 @@ window.gamedata = {
 			}
 		}
 		if (hullFound == false){
-		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0, isFtr:false, jinkLimit:0};
+		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0, isFtr:false};
 	            if(lship.flight){
 	            	nHull.isFtr = lship.flight;
-			nHull.jinkLimit = lship.jinkinglimit;
 		    }
 		    switch(vLetter) {
 			    case 'Q':
@@ -166,7 +174,23 @@ window.gamedata = {
 		     shipTable.push(nHull);
 		}
 		if(!lship.flight){
-	            totalShips++;    
+	            totalShips++;
+	            //check hangar space available...
+		    for(var h in lship.fighters){
+			var hangar = lship.fighters[h];
+			    
+		    }
+		}else{//note presence of fighters
+			//classify depending on jinking limit...
+			if (lship.jinkinglimit>=10){
+				totalFtrL += lship.flightSize;
+			}else if (lship.jinkinglimit>=8){
+				totalFtrM += lship.flightSize;
+			}else if (lship.jinkinglimit>=6){
+				totalFtrH += lship.flightSize;
+			}else {
+				totalFtrOther += lship.flightSize;
+			}			
 		}
 		if (jumpDrivePresent == false){ //if already found there's no point
 			for (var a in lship.systems){
@@ -310,13 +334,15 @@ window.gamedata = {
 	    limitUTotal = Math.max(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
-		    checkResult += "You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).\n" ;
+		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).\n" ;
 		    problemFound = true;
 	    }	    
 	    checkResult += "\n";
 	    
 	    
-
+	    //fighters!
+	    
+	    
 	    
 	    
 	    if (warningFound){
