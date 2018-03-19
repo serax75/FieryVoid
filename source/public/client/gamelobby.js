@@ -260,7 +260,7 @@ window.gamedata = {
 	    //variant restrictions
 	    checkResult += "Variant restrictions:\n";
 	    var limitPerHull = Math.floor(selectedSlot.points/1000); //turnament rules: 3, but it's for 3500 points
-	    limitPerHull = Math.min(limitPerHull,2); //always allow at least 2!
+	    limitPerHull = Math.max(limitPerHull,2); //always allow at least 2!
 	    var currRlimit = 0;
 	    var currUlimit = 0;
 	    var sumVar = 0;
@@ -307,7 +307,7 @@ window.gamedata = {
 	    
 	    //total Uncommon/Rare units in fleet
 	    var limitUTotal =  Math.floor(selectedSlot.points/1250); //limit Uncommon units per fleet; turnament rules: 2, but it's for 3500 points
-	    limitUTotal = Math.min(limitPerHull,2); //always allow at least 2! 
+	    limitUTotal = Math.max(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
 		    checkResult += "You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).\n" ;
