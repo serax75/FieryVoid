@@ -356,7 +356,7 @@ window.gamedata = {
 	    var totalFtrCurr = 0;
 	    var totalHangarCurr = 0;
 	    checkResult += "Fighters:<br>";
-		checkResult +=  " - Total: " + totalFtrPresent;
+		checkResult +=  " - Total fighters: " + totalFtrPresent;
 	    	checkResult +=  " (allowed between " +minFtrRequired+ " and " + totalHangarAvailable + ")";
 		if (totalFtrPresent > totalHangarAvailable || totalFtrPresent < minFtrRequired){ //fighter total is not within limits
 			checkResult += " FAILURE!";
