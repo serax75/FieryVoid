@@ -201,9 +201,9 @@ window.gamedata = {
 	    checkResult += "Capital ships: " + capitalShips + ": "; //Capital Ship present?
 	    var capsRequired = Math.floor(selectedSlot.points/3000);
 	    if (capitalShips >= capsRequired){ //tournament rules: at least 1; changed for scalability
-		    checkResult += "OK";
+		    checkResult += " OK";
 	    }else{		    
-		    checkResult += " NOT present! (at least " + capsRequired + " required)";
+		    checkResult += " FAILED! (at least " + capsRequired + " required)";
 		    problemFound = true;
 	    }
 	    checkResult += "\n";
