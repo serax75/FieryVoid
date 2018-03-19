@@ -310,7 +310,7 @@ window.gamedata = {
 	    limitUTotal = Math.min(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
-		    checkResult += "You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal " Uncommon allowed (Rare units count double).\n" ;
+		    checkResult += "You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).\n" ;
 		    problemFound = true;
 	    }	    
 	    checkResult += "\n";
