@@ -86,8 +86,11 @@ window.gamedata = {
 	    var units33 = 0;
 	    var points10 = 0;
 	    var points33 = 0;
+	    var totalU = 0;
+	    var totalR = 0;
 	    var jumpDrivePresent = false;
 	    var capitalShips = 0;
+	    var totalShips = 0;
 	    var customShipPresent = false;
 	    var staticPresent = false;
 	    var shipTable = []; 
@@ -117,14 +120,17 @@ window.gamedata = {
 				switch(vLetter) {
 				    case 'Q':
 					oHull.Q++;
+					totalR++;
 					break;
 				    case 'R':
 					oHull.R++;
+					totalR++;
 					break;
 				    case 'U':
 					oHull.U++;
+					totalU++;
 					break;
-				    case 'Q':
+				    case 'C':
 					oHull.C++;
 					break;
 				    default:
@@ -133,24 +139,34 @@ window.gamedata = {
 			}
 		}
 		if (hullFound == false){
-		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0};
+		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0, isFtr:false, jinkLimit=0};
+	            if(lship.flight){
+	            	nHull.isFtr = lship.flight;
+			nHull.jinkLimit = lship.jinkinglimit;
+		    }
 		    switch(vLetter) {
 			    case 'Q':
 				nHull.Q++;
+				totalR++; //Unique is treated more or less the same as Rare
 				break;
 			    case 'R':
 				nHull.R++;
+				totalR++;
 				break;
 			    case 'U':
 				nHull.U++;
+				tutalU++;
 				break;
-			    case 'Q':
+			    case 'C':
 				nHull.C++;
 				break;
 			    default:
 				nHull.X++;
 		     }
 		     shipTable.push(nHull);
+		}
+		if(!lship.flight){
+	            totalShips++;    
 		}
 		if (jumpDrivePresent == false){ //if already found there's no point
 			for (var a in lship.systems){
@@ -167,11 +183,13 @@ window.gamedata = {
 		    
 		    
 	    } //end of loop at ships preparing data
+	    
+	    
 
 	    checkResult = "Total fleet limit: " + selectedSlot.points + "\n\n";
 	    
 	    //check: overall fleet traits
-	    checkResult += "Jump engine: ";
+	    checkResult += "Jump engine: "; //Jump Engine present?
 	    if (jumpDrivePresent){
 		    checkResult += " present";
 	    }else{		    
@@ -179,7 +197,8 @@ window.gamedata = {
 		    problemFound = true;
 	    }
 	    checkResult += "\n";
-	    checkResult += "Capital ships: " + capitalShips + ": ";
+	    
+	    checkResult += "Capital ships: " + capitalShips + ": "; //Capital Ship present?
 	    var capsRequired = Math.floor(selectedSlot.points/3000);
 	    if (capitalShips >= capsRequired){ //tournament rules: at least 1; changed for scalability
 		    checkResult += "OK";
@@ -188,10 +207,14 @@ window.gamedata = {
 		    problemFound = true;
 	    }
 	    checkResult += "\n";
+	    
+	    //Custom units present?
 	    if (customShipPresent){
 		checkResult += "Custom unit(s) present! Opponent's permission required.\n"; 	
 		warningFound = true;
 	    }
+	    
+	    //Static structures present?
 	    if (staticPresent){
 		   checkResult += "Static structures present! They're not allowed in pickup battle."; 
 		   problemFound = true;
@@ -201,8 +224,7 @@ window.gamedata = {
 	    
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
-	    var oneOverAllowed = false;
-	    
+	    var oneOverAllowed = false;	    
 	    checkResult += "Deployment restrictions:\n";
 	    checkResult += " - 10% bracket: " + points10 +"/" + limit10 + ": ";
 	    if (points10<=limit10){
@@ -229,11 +251,72 @@ window.gamedata = {
 		    	problemFound = true;
 		    }
 	    }
+	    if(points10>0 && totalShips<2){
+		checkResult += "\nRestricted (10%) ship present without escort! Such a rare ship needs to be accompanied by at least one other ship, unless it's Dargan or a Minbari ship.";
+		problemFound = true;
+	    }	    
 	    checkResult += "\n\n";
 	    
+	    //variant restrictions
+	    checkResult += "Variant restrictions:\n";
+	    var limitPerHull = Math.floor(selectedSlot.points/1000); //turnament rules: 3, but it's for 3500 points
+	    limitPerHull = Math.min(limitPerHull,2); //always allow at least 2!
+	    var currRlimit = 0;
+	    var currUlimit = 0;
+	    var sumVar = 0;
+	    for (var j in  shipTable){
+		var currHull = shipTable[j];
+		checkResult += " " + currHull.name + "\n";			
+		checkResult +=  " - Total: " + currHull.Total;
+		if (!currHull.isFtr){ //fighter total is not limited
+		    	checkResult +=  " (allowed " +limitPerHull+ ")";
+			if (currHull.Total>limitPerHull ){
+				checkResult += " TOO MANY!";
+				problemFound = true;
+			}
+		}
+		checkResult += "\n";
+		currRlimit = Math.ceil(currHull.Total/9);
+		currUlimit = Math.ceil(currHull.Total/3);
+		sumVar = currHull.R + currHull.Q + currHull.U;
+		if (sumVar > 0){
+			checkResult += " - Uncommon/Rare/Unique " + sumVar + " (allowed " +currUlimit+ ")";
+			if (sumVar>currRlimit){
+				checkResult += " TOO MANY!";
+				problemFound = true;
+			}
+			checkResult += "\n";
+		}
+		sumVar = currHull.R + currHull.Q;
+		if (sumVar > 0){
+			checkResult += " - Rare/Unique: " + sumVar + " (allowed " +currRlimit+ ")";
+			if (sumVar>currRlimit){
+				checkResult += " TOO MANY!";
+				problemFound = true;
+			}
+			checkResult += "\n";
+		}
+		sumVar = currHull.X;
+		if (sumVar > 0){
+			checkResult += " - Special: "+sumVar;
+			checkResult += " CORRECTNESS NOT CHECKED!";
+			warningFound = true;
+			checkResult += "\n";
+		}  		
+	    }
+	    
+	    //total Uncommon/Rare units in fleet
+	    var limitUTotal =  Math.floor(selectedSlot.points/1250); //limit Uncommon units per fleet; turnament rules: 2, but it's for 3500 points
+	    limitUTotal = Math.min(limitPerHull,2); //always allow at least 2! 
+	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
+	    if (totalCombined>limitUTotal){
+		    checkResult += "You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal " Uncommon allowed (Rare units count double).\n" ;
+		    problemFound = true;
+	    }	    
+	    checkResult += "\n";
 	    
 	    
-	    
+
 	    
 	    
 	    if (warningFound){
@@ -249,7 +332,7 @@ window.gamedata = {
 	    
 	    checkResult = "FLEET CORRECTNESS REPORT\nbased on tournament rules, modified for scalability.\n\n"+checkResult;
 	    alert(checkResult);
-    },
+    }, //endof function checkChoices
 	
 	
     constructFleetList: function(){
