@@ -139,7 +139,7 @@ window.gamedata = {
 			}
 		}
 		if (hullFound == false){
-		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0, isFtr:false, jinkLimit=0};
+		    var nHull = {name:hull, Total: 1, Q:0, R: 0, U: 0, C: 0, X: 0, isFtr:false, jinkLimit:0};
 	            if(lship.flight){
 	            	nHull.isFtr = lship.flight;
 			nHull.jinkLimit = lship.jinkinglimit;
