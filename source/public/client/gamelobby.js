@@ -306,7 +306,7 @@ window.gamedata = {
 				problemFound = true;
 			}
 		}
-		checkResult += "\n";
+		checkResult += "<br>";
 		currRlimit = Math.ceil(currHull.Total/9);
 		currUlimit = Math.ceil(currHull.Total/3);
 		sumVar = currHull.R + currHull.Q + currHull.U;
