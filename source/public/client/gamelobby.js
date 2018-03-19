@@ -428,7 +428,7 @@ window.gamedata = {
 	    var targetDiv = document.getElementById("fleetcheck");
 	    targetDiv.style.display = "block";
 	    checkResult.replace("\n","<br>"); //convert newline from text to html display
-	    targetDiv.value = checkResult;	    
+	    targetDiv.text = checkResult;	    
 	    
 	    alert("Fleet check updated!");
     }, //endof function checkChoices
