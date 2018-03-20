@@ -338,8 +338,11 @@ window.gamedata = {
 	    }
 	    checkResult += "<br>";
 	    
-	    //total Uncommon/Rare units in fleet
-	    var limitUTotal =  Math.floor(selectedSlot.points/1500); //limit Uncommon units per fleet; turnament rules: 2, but it's for 3500 points
+	    //total Uncommon/Rare units in fleet	    
+	    var limitUTotal =  0;
+	    if((selectedSlot.points-1500) > 0){
+	    	Math.floor((selectedSlot.points-1500)/1000); //limit Uncommon units per fleet; turnament rules: 2, but it's for 3500 points
+	    }
 	    limitUTotal = Math.max(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
