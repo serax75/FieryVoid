@@ -74,7 +74,7 @@ window.gamedata = {
 		return(vLetter);
 	},
 	
-	/*checks fleet composition and displays alert with result*/
+			/*checks fleet composition and displays alert with result*/
     checkChoices: function(){
 	    var checkResult = "";
 	    var problemFound = false;
@@ -256,7 +256,7 @@ window.gamedata = {
 	    var limit10 = Math.floor(selectedSlot.points*0.1);
 	    var limit33 = Math.floor(selectedSlot.points*0.33);
 	    var oneOverAllowed = false;	    
-	    checkResult += "Deployment restrictions:<br>";
+	    checkResult += "<br><u><b>Deployment restrictions:</b></u><br>";
 	    checkResult += " - 10% bracket: " + points10 +"/" + limit10 + ": ";
 	    if (points10<=limit10){
 		    checkResult += "OK";
@@ -289,7 +289,7 @@ window.gamedata = {
 	    checkResult += "<br><br>";
 	    
 	    //variant restrictions
-	    checkResult += "Variant restrictions:<br>";
+	    checkResult += "<br>><u><b>Variant restrictions:</b></u><br><br>";
 	    var limitPerHull = Math.floor(selectedSlot.points/1000); //turnament rules: 3, but it's for 3500 points
 	    limitPerHull = Math.max(limitPerHull,2); //always allow at least 2!
 	    var currRlimit = 0;
@@ -346,7 +346,7 @@ window.gamedata = {
 		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).<br>" ;
 		    problemFound = true;
 	    }	    
-	    checkResult += "<br><br>";
+	    checkResult += "<br>";
 	    
 	    
 	    //fighters!
@@ -355,7 +355,7 @@ window.gamedata = {
 	    var totalFtrPresent = totalFtrH+totalFtrM+totalFtrL;
 	    var totalFtrCurr = 0;
 	    var totalHangarCurr = 0;
-	    checkResult += "Fighters:<br>";
+	    checkResult += "<br><b><u>Fighters:</u></b><br>";
 		checkResult +=  " - Total fighters: " + totalFtrPresent;
 	    	checkResult +=  " (allowed between " +minFtrRequired+ " and " + totalHangarAvailable + ")";
 		if (totalFtrPresent > totalHangarAvailable || totalFtrPresent < minFtrRequired){ //fighter total is not within limits
@@ -432,7 +432,6 @@ window.gamedata = {
 	    
 	    alert("Fleet check updated!");
     }, //endof function checkChoices
-	
 	
 	
     constructFleetList: function(){
