@@ -74,7 +74,7 @@ window.gamedata = {
 		return(vLetter);
 	},
 	
-			/*checks fleet composition and displays alert with result*/
+		/*checks fleet composition and displays alert with result*/
     checkChoices: function(){
 	    var checkResult = "";
 	    var problemFound = false;
@@ -297,7 +297,7 @@ window.gamedata = {
 	    var sumVar = 0;
 	    for (var j in  shipTable){
 		var currHull = shipTable[j];
-		checkResult += " " + currHull.name + "<br>";			
+		checkResult += " <i>" + currHull.name + "</i><br>";			
 		checkResult +=  " - Total: " + currHull.Total;
 		if (!currHull.isFtr){ //fighter total is not limited
 		    	checkResult +=  " (allowed " +limitPerHull+ ")";
@@ -343,10 +343,9 @@ window.gamedata = {
 	    limitUTotal = Math.max(limitPerHull,2); //always allow at least 2! 
 	    var totalCombined = totalU + 2*totalR; //Rares take 2 slots
 	    if (totalCombined>limitUTotal){
-		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).<br>" ;
+		    checkResult += "FAILED: You have " + totalU + " Uncommon and " + totalR + " Rare units , out of total " + limitUTotal + " Uncommon allowed (Rare units count double).<br><br>" ;
 		    problemFound = true;
 	    }	    
-	    checkResult += "<br>";
 	    
 	    
 	    //fighters!
@@ -415,12 +414,12 @@ window.gamedata = {
 	    }
 	    
 	    if (problemFound){
-		    checkResult = "Overall: FAILED!<br><br>"+checkResult;
+		    checkResult = "Overall: <b><u>FAILED</u></b>!<br><br>"+checkResult;
 	    }else{
-		    checkResult = "Overall: OK.<br><br>"+checkResult;
+		    checkResult = "Overall: <b><u>OK</u></b>.<br><br>"+checkResult;
 	    }
 	    
-	    checkResult = "FLEET CORRECTNESS REPORT<br>based on tournament rules, modified for scalability.<br><br>"+checkResult;
+	    checkResult = "<b>FLEET CORRECTNESS REPORT</b><br>based on tournament rules, modified for scalability.<br><br>"+checkResult;
 	    
 	    
 	    
