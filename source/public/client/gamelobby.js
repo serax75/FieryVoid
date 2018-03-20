@@ -162,7 +162,7 @@ window.gamedata = {
 				break;
 			    case 'U':
 				nHull.U++;
-				tutalU++;
+				totalU++;
 				break;
 			    case 'C':
 				nHull.C++;
