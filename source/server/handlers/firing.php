@@ -523,22 +523,6 @@ class Firing{
             }
         }
         usort($fireOrders, "self::compareFiringOrders");
-	      /* moved to separate function
-            function($a, $b) use ($gamedata){
-		if ($a->targetid !== $b->targetid){
-                    return $a->targetid - $b->targetid;
-                }else if($a->calledid!==$b->calledid){ //called shots first!
-                    return $a->targetid - $b->targetid;
-                }else if ($a->priority !== $b->priority){
-                    return $a->priority - $b->priority;
-                }
-                else {
-			$val = $a->shooterid - $b->shooterid;
-			if ($val == 0) $val = $a->id - $b->id; //let's use database ID as final sorting element!
-			return $val;
-                }
-            }
-        );*/
 	    
         foreach ($fireOrders as $fire){
                 $ship = $gamedata->getShipById($fire->shooterid);
@@ -561,8 +545,14 @@ class Firing{
                 if ($fire->turn != $gamedata->turn){
                     continue;
                 }
-                
-                $weapon = $ship->getSystemById($fire->weaponid);
+		    
+                if ($fire->type === "intercept" || $fire->type === "selfIntercept"){
+                    continue;
+                }                
+                $weapon = $ship->getSystemById($fire->weaponid);		    
+                if ($weapon instanceof Thruster || $weapon instanceof Structure){
+                    continue;
+                }
 		    
 		//ramming attacks are already allocated!
 		if ($weapon->isRammingAttack) continue;
@@ -603,7 +593,14 @@ class Firing{
 		//ramming attacks are already allocated!
 		if ($weapon->isRammingAttack) continue; 
 		    
-                $weapon = $ship->getSystemById($fire->weaponid);
+                if ($fire->type === "intercept" || $fire->type === "selfIntercept"){
+                    continue;
+                }                
+                $weapon = $ship->getSystemById($fire->weaponid);		    
+                if ($weapon instanceof Thruster || $weapon instanceof Structure){
+                    continue;
+                }
+		    
                 if (($ship->getFighterBySystem($weapon->id)->isDestroyed() || $ship->isDestroyed() )
                         && !$weapon->ballistic){
                     continue;
@@ -619,7 +616,11 @@ class Firing{
 	//FIRE rest of fighters
 	foreach ($chosenfires as $fire){
             $shooter = $gamedata->getShipById($fire->shooterid);
-            self::fire($shooter, $fire, $gamedata);
+            $target = $gamedata->getShipById($fire->targetid);
+            
+            if (!($target instanceof FighterFlight)){ //only at ships
+                self::fire($shooter, $fire, $gamedata);
+            }
         }
     } //endof method fireWeapons
 	
