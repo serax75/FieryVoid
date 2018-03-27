@@ -186,6 +186,7 @@
 		//check whether game id is safe (can be safely be deleted lin May 2018) or so)
 		///already safe enough, commenting out!
 		//if ((TacGamedata::$currentGameID >= TacGamedata::$safeGameID) || (TacGamedata::$currentGameID < 1)){
+		if ((4047 != TacGamedata::$safeGameID) ){ ///not safe yet :((((
 			//check if ramming attack is already added	
 			$alreadyRamming = false;
 			foreach ($fighter->systems as $system){
@@ -194,7 +195,7 @@
 			if(!$alreadyRamming){			
 				$fighter->addAftSystem(new RammingAttack(0, 0, 360, 0, 0));
 			}
-		//}		
+		}		
 		
             foreach ($fighter->systems as $system){
 		    $system->setUnit($this);
