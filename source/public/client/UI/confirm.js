@@ -134,14 +134,20 @@ window.confirm = {
 		launchers = 0;
 	}
 
-
 	var totalCost = (flightSize * (fighterCost + (launchers * missileAmount * missileCost)));
 
 
-
-	//add enhancement cost
-	    
-
+	//add enhancement cost	   
+	var enhCost = 0;
+	var enhNo = 0;
+	var target = $(".selectAmount.shpenh" + enhNo);
+	while(typeof target != 'undefined'){ //as long as there are enhancements defined...
+		enhCost += target.data("enhCost");		
+		//go to next enhancement
+		enhNo++;
+		target = $(".selectAmount.shpenh" + enhNo);
+	}
+	totalCost += enhCost;
 
 	var totalCostSpan = $(".confirm .totalUnitCostAmount");
 	totalCostSpan.data("value", totalCost);
@@ -157,14 +163,12 @@ window.confirm = {
         var current = flightSize.html();
         var max = $(".totalUnitCostAmount").data("maxSize");
 
-		if (current < max){
+	if (current < max){
             flightSize.html(Math.floor(current) + 3);
-		}        
+	}        
         else return;
 
         confirm.getTotalCost();
-
-
     },
 
 
@@ -175,13 +179,12 @@ window.confirm = {
         var current = flightSize.html();
         var max = $(".totalUnitCostAmount").data("maxSize");
 
-		if (current > 3){
+	if (current > 3){
             flightSize.html(Math.floor(current) - 3);
-		}        
+	}        
         else return;
 
         confirm.getTotalCost();
-
     },
 
 
@@ -209,7 +212,26 @@ window.confirm = {
     },
 
     doOnMinusEnhancement: function(e){
-	alert('MinusEnhancement');    
+	e.stopPropagation();  
+
+	var button = $(this);
+	var enhNo = button.data("enhNo");
+	var target = $(".selectAmount.shpenh" + enhNo);
+	    
+	var noTaken = target.data("count");
+	var enhLimit = target.data("max");	
+	var enhPrice = target.data("enhPrice");	
+	var enhPriceStep = target.data("enhPriceStep");	
+
+	if(noTaken > 0){ //decrease possible
+		var newCount = noTaken-1;
+		target.data("count", newCount);
+		target.html(newCount);
+		var cost = enhPrice + (noTaken*enhPriceStep); //base value, plus additional price charged for further levels
+		var newCost = target.data("enhCost")-cost;		
+		target.data("enhCost", newCost);
+		confirm.getTotalCost();
+	}
     },
 	
     showShipBuy: function(ship, callback){
