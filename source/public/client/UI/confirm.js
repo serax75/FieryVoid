@@ -70,16 +70,7 @@ window.confirm = {
         }
     },
 
-
-
-//    arrayIsEmpty: function(array){
-//        for(var i in array){
-//            return false;
-//        }
-//        
-//        return true;
-//    },
-    
+   
     doOnPlusMissile: function(e){
 		e.stopPropagation(); 
 
@@ -122,43 +113,44 @@ window.confirm = {
 
 
     getTotalCost: function(){ 
+	var flightSize = $(".fighterAmount").html();
+	if (!flightSize){
+		flightSize = 1;
+	}
 
-		var flightSize = $(".fighterAmount").html();
-		if (!flightSize){
-			flightSize = 1;
-		}
+	var fighterCost = $(".fighterAmount").data("pV");
+	if (!fighterCost){
+		var span = $(".totalUnitCostAmount").data("value");
+		fighterCost = span;	
+	}
 
-		var fighterCost = $(".fighterAmount").data("pV");
-		if (!fighterCost){
-			var span = $(".totalUnitCostAmount").data("value");
-			fighterCost = span;	
-		}
+	var missileType = $(".selectText").data("firingMode");
+	var missileAmount = $(".selectAmount." + missileType).data("value");
+	var launchers = $(".selectAmount." + missileType).data("launchers");
+	var missileCost = $(".selectAmount." + missileType).data("cost");
 
-	    var missileType = $(".selectText").data("firingMode");
-		var missileAmount = $(".selectAmount." + missileType).data("value");
-		var launchers = $(".selectAmount." + missileType).data("launchers");
-		var missileCost = $(".selectAmount." + missileType).data("cost");
-
-		if (!missileAmount){
-			missileAmount = 0;
-		}
-		if (!missileCost){
-			missileCost = 0;
-		}
-		if (!launchers){
-			launchers = 0;
-		}
-
-	//	console.log(flightSize, fighterCost, missileAmount, launchers, missileCost);
-
-		var totalCost = (flightSize * (fighterCost + (launchers * missileAmount * missileCost)));
+	if (!missileAmount){
+		missileAmount = 0;
+	}
+	if (!missileCost){
+		missileCost = 0;
+	}
+	if (!launchers){
+		launchers = 0;
+	}
 
 
-		var totalCostSpan = $(".confirm .totalUnitCostAmount");
-			totalCostSpan.data("value", totalCost);
+	var totalCost = (flightSize * (fighterCost + (launchers * missileAmount * missileCost)));
 
-			totalCostSpan.html(totalCost);
 
+
+	//add enhancement cost
+	    
+
+
+	var totalCostSpan = $(".confirm .totalUnitCostAmount");
+	totalCostSpan.data("value", totalCost);
+	totalCostSpan.html(totalCost);
     },
 
 
@@ -199,7 +191,26 @@ window.confirm = {
 
 
     doOnPlusEnhancement: function(e){
-	alert('PlusEnhancement');    
+	e.stopPropagation();  
+
+	var button = $(this);
+	var enhID = button.data("enhID");
+	var target = $(".selectAmount.shpenh" + enhID);
+	    
+	var noTaken = target.data("count");
+	var enhLimit = target.data("max");	
+	var enhPrice = target.data("enhPrice");	
+	var enhPriceStep = target.data("enhPriceStep");	
+
+	if(noTaken < enhLimit){ //increase possible
+		var newCount = noTaken+1;
+		target.data("count", newCount);
+		target.html(newCount);
+		var cost = enhPrice + (noTaken*enhPriceStep); //base value, plus additional price charged for further levels
+		var newCost = target.data("enhCost")+cost;		
+		target.data("enhCost", newCost);
+		confirm.getTotalCost();
+	}
     },
 
     doOnMinusEnhancement: function(e){
@@ -248,10 +259,13 @@ window.confirm = {
 
                 selectAmountItem.html("0");
                 selectAmountItem.addClass("shpenh"+i);
-                selectAmountItem.data('value', 0);
+		selectAmountItem.data('enhID', enhID);
+                selectAmountItem.data('count', 0);
+                selectAmountItem.data('enhCost', 0);
                 selectAmountItem.data('min', 0);
 		selectAmountItem.data('max', enhLimit);
-	        selectAmountItem.data('cost', enhPrice);
+	        selectAmountItem.data('price', 0);
+	        selectAmountItem.data('priceStep', 0);
 	        //selectAmountItem.data('launchers', confirm.getLaunchersPerFighter(ship));
 	        //selectAmountItem.data("firingMode", i);
 		
@@ -271,7 +285,7 @@ window.confirm = {
 		
 		
 	    $(".plusButton", item).on("click",confirm.doOnPlusEnhancement);
-	    $(".missileSelectItem .selectButtons .minusButton", e).on("click",confirm.doOnMinusEnhancement);
+	    $(".minusButton", item).on("click",confirm.doOnMinusEnhancement);
 	}
         $('<div class="missileselect"><label>You may select optional enhancements. Please be sensible.<br></label>').prependTo(e);
 
@@ -329,9 +343,10 @@ window.confirm = {
             $('<div class="missileselect"><label>This fighter type can carry fighter missiles.<br>\
                     Please select the amount you wish to purchase PER MISSILE LAUNCHER.<br></label>').prependTo(e);
 
-            $(".missileSelectItem .selectButtons .plusButton", e).on("click",confirm.doOnPlusMissile);
-            $(".missileSelectItem .selectButtons .minusButton", e).on("click",confirm.doOnMinusMissile);
-
+            //$(".missileSelectItem .selectButtons .plusButton", e).on("click",confirm.doOnPlusMissile);
+            //$(".missileSelectItem .selectButtons .minusButton", e).on("click",confirm.doOnMinusMissile);
+            $(".plusButton", item).on("click",confirm.doOnPlusMissile);
+            $(".minusButton", item).on("click",confirm.doOnMinusMissile);
         }
 
 
