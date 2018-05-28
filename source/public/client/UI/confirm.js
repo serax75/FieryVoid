@@ -227,7 +227,7 @@ window.confirm = {
 		var newCount = noTaken-1;
 		target.data("count", newCount);
 		target.html(newCount);
-		var cost = enhPrice + (noTaken*enhPriceStep); //base value, plus additional price charged for further levels
+		var cost = enhPrice + (newCount*enhPriceStep); //base value, plus additional price charged for further levels
 		var newCost = target.data("enhCost")-cost;		
 		target.data("enhCost", newCost);
 		confirm.getTotalCost();
