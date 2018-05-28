@@ -17,6 +17,7 @@ spl_autoload_register(
                 'tmpinidown' => '/server/model/cricialClasses.php',
                 
                 //bases and stuff
+                'basemarcanos' => '/server/model/ships/centauri/baseMarcanos.php',
                 'kraken' => '/server/model/ships/centauri/kraken.php',
                 'jastat' => '/server/model/ships/narn/jastat.php',
                 'quadparticlebeam' => '/server/model/weapons/particle.php',
