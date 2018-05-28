@@ -270,7 +270,7 @@ window.confirm = {
                 minusButton.data("enhID", enhID);
 		
 		
-	    $(".missileSelectItem .selectButtons .plusButton", e).on("click",confirm.doOnPlusEnhancement);
+	    $(".plusButton", item).on("click",confirm.doOnPlusEnhancement);
 	    $(".missileSelectItem .selectButtons .minusButton", e).on("click",confirm.doOnMinusEnhancement);
 	}
         $('<div class="missileselect"><label>You may select optional enhancements. Please be sensible.<br></label>').prependTo(e);
