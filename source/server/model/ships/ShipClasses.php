@@ -53,6 +53,8 @@
         public $slotid;
 
         public $movement = array();
+	    
+	    public $enhancementOptions = array();
         
 	    protected $advancedArmor = false; //set to true if ship is equipped with advanced armor!
 	    
