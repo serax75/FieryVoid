@@ -22,6 +22,7 @@ class BaseMarcanos extends SmallStarBaseFourSections{
 		$this->addLeftSystem(new Structure( 4, 90));
 		$this->addRightSystem(new Structure( 4, 90));
 		$this->addPrimarySystem(new Structure( 5, 100));
+		$this->isd = 2113;
 		
 		$this->hitChart = array(			
 			0=> array(
