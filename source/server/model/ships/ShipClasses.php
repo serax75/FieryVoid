@@ -54,7 +54,7 @@
 
         public $movement = array();
 	    
-	    public $enhancementOptions = array();
+	    public $enhancementOptions = array(); //ID,readableName,numberTaken,limit,price,priceStep
         
 	    protected $advancedArmor = false; //set to true if ship is equipped with advanced armor!
 	    
