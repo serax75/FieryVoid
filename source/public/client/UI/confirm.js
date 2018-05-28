@@ -255,9 +255,9 @@ window.confirm = {
 	        //selectAmountItem.data('launchers', confirm.getLaunchersPerFighter(ship));
 	        //selectAmountItem.data("firingMode", i);
 		
-		var nameExpanded = enhName + ' (up to ' + enhLimit + ' levels, ' + enhPrice 'PV ';
+		var nameExpanded = enhName + ' (up to ' + enhLimit + ' levels, ' + enhPrice + 'PV ';
 		if(enhPriceStep!=0){
-			nameExpanded = nameExpanded + ' plus ' + enhPriceStep + ' per level';		
+			nameExpanded = nameExpanded + ' plus ' + enhPriceStep + 'PV per level';		
 		}
 		nameExpanded = nameExpanded + ')';
 		
