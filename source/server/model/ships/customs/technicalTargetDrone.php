@@ -91,6 +91,11 @@ class technicalTargetDrone extends BaseShip{
 		$this->addRightSystem(new Structure( 4, 98));
 		$this->addPrimarySystem(new Structure( 6, 95));
 		   
+		
+	     $this->enhancementOptions() = array('TEST1','Test Enhancement Option 1',0,2,125,0); //ID,readableName,numberTaken,limit,price,priceStep
+	     $this->enhancementOptions() = array('TESTV','Test Enhancement Option Variable Price',0,4,100,50);
+		
+		
 		//d20 hit chart
 		$this->hitChart = array(
 			
