@@ -141,7 +141,7 @@ window.confirm = {
 	var enhCost = 0;
 	var enhNo = 0;
 	var target = $(".selectAmount.shpenh" + enhNo);
-	while(typeof target != 'undefined'){ //as long as there are enhancements defined...
+	while(typeof target.data("enhPrice") != 'undefined'){ //as long as there are enhancements defined...
 		enhCost += target.data("enhCost");		
 		//go to next enhancement
 		enhNo++;
@@ -281,8 +281,8 @@ window.confirm = {
                 selectAmountItem.data('enhCost', 0);
                 selectAmountItem.data('min', 0);
 		selectAmountItem.data('max', enhLimit);
-	        selectAmountItem.data('price', 0);
-	        selectAmountItem.data('priceStep', 0);
+	        selectAmountItem.data('enhPrice', 0);
+	        selectAmountItem.data('enhPriceStep', 0);
 	        //selectAmountItem.data('launchers', confirm.getLaunchersPerFighter(ship));
 	        //selectAmountItem.data("firingMode", i);
 		
