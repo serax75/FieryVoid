@@ -198,16 +198,22 @@ window.confirm = {
     },
 
 
-	showShipBuy: function(ship, callback){
+    doOnPlusEnhancement: function(e){
+	alert('PlusEnhancement');    
+    },
 
-		var e = $(this.whtml);
-
-
-		//variable flightsize
+    doOnMinusEnhancement: function(e){
+	alert('MinusEnhancement');    
+    },
+	
+    showShipBuy: function(ship, callback){
+	var e = $(this.whtml);
+		
+	//variable flightsize
         var variableSize = confirm.getVariableSize(ship);
         var missileOptions = confirm.getMissileOptions(ship);
 
-        if (variableSize || missileOptions.length > 0 || ship.superheavy){
+        //if (variableSize || missileOptions.length > 0 || ship.superheavy){
             var totalTemplate = $(".totalUnitCost");
             var totalItem = totalTemplate.clone(true).prependTo(e);
             
@@ -223,7 +229,51 @@ window.confirm = {
 	            $(".totalUnitCostAmount").data("maxSize", 12);
 	        } else $(".totalUnitCostAmount").data("maxSize", 9);
 
-        }
+        //}
+	    
+	//ship enhancements
+	for(var i in ship.enhancementOptions){
+		//enhancementOption: ID,readableName,numberTaken,limit,price,priceStep	
+		var enhancement = ship.enhancementOptions[i];
+		var enhID = enhancement[0];
+		var enhName = enhancement[1];
+		var enhLimit = enhancement[3];		
+		var enhPrice = enhancement[4];
+		var enhPriceStep = enhancement[5];
+		
+		var template = $(".missileSelectItem");
+                var item = template.clone(true).prependTo(e);
+
+                var selectAmountItem = $(".selectAmount", item);
+
+                selectAmountItem.html("0");
+                selectAmountItem.addClass("shpenh"+i);
+                selectAmountItem.data('value', 0);
+                selectAmountItem.data('min', 0);
+		selectAmountItem.data('max', enhLimit);
+	        selectAmountItem.data('cost', enhPrice);
+	        //selectAmountItem.data('launchers', confirm.getLaunchersPerFighter(ship));
+	        //selectAmountItem.data("firingMode", i);
+		
+		var nameExpanded = enhName + ' (up to ' + enhLimit + ' levels, ' + enhPrice 'PV ';
+		if(enhPriceStep!=0){
+			nameExpanded = nameExpanded + ' plus ' + enhPriceStep + ' per level';		
+		}
+		nameExpanded = nameExpanded + ')';
+		
+		$(".selectText", item).html(nameExpanded);
+		$(item).show();
+				
+                var plusButton = $(".plusButton", item);
+                plusButton.data("enhID", enhID); 
+		var minusButton = $(".minusButton", item);
+                minusButton.data("enhID", enhID);
+		
+		
+	    $(".missileSelectItem .selectButtons .plusButton", e).on("click",confirm.doOnPlusEnhancement);
+	    $(".missileSelectItem .selectButtons .minusButton", e).on("click",confirm.doOnMinusEnhancement);
+	}
+        $('<div class="missileselect"><label>You may select optional enhancements. Please be sensible.<br></label>').prependTo(e);
 
 
 
