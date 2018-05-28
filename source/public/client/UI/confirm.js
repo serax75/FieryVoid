@@ -3,11 +3,6 @@ window.confirm = {
 	whtml:'<div class="confirm"><div class="ui"><div class="confirmok"></div><div class="confirmcancel"></div></div></div>',
 
 	showConfirmOkCancel: function(message, okcb, cancelcb){
-	
-		
-		
-		
-	
 	},
 
 
@@ -194,8 +189,8 @@ window.confirm = {
 	e.stopPropagation();  
 
 	var button = $(this);
-	var enhID = button.data("enhID");
-	var target = $(".selectAmount.shpenh" + enhID);
+	var enhNo = button.data("enhNo");
+	var target = $(".selectAmount.shpenh" + enhNo);
 	    
 	var noTaken = target.data("count");
 	var enhLimit = target.data("max");	
@@ -279,9 +274,9 @@ window.confirm = {
 		$(item).show();
 				
                 var plusButton = $(".plusButton", item);
-                plusButton.data("enhID", enhID); 
+                plusButton.data("enhNo", i); 
 		var minusButton = $(".minusButton", item);
-                minusButton.data("enhID", enhID);
+                minusButton.data("enhNo", i);
 		
 		
 	    $(".plusButton", item).on("click",confirm.doOnPlusEnhancement);
