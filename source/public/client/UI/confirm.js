@@ -281,8 +281,8 @@ window.confirm = {
                 selectAmountItem.data('enhCost', 0);
                 selectAmountItem.data('min', 0);
 		selectAmountItem.data('max', enhLimit);
-	        selectAmountItem.data('enhPrice', 0);
-	        selectAmountItem.data('enhPriceStep', 0);
+	        selectAmountItem.data('enhPrice', enhPrice);
+	        selectAmountItem.data('enhPriceStep', enhPriceStep);
 	        //selectAmountItem.data('launchers', confirm.getLaunchersPerFighter(ship));
 	        //selectAmountItem.data("firingMode", i);
 		
