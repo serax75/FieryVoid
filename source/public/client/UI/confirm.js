@@ -147,7 +147,7 @@ window.confirm = {
 		enhNo++;
 		target = $(".selectAmount.shpenh" + enhNo);
 	}
-	totalCost += enhCost;
+	totalCost += flightSize * enhCost;
 
 	var totalCostSpan = $(".confirm .totalUnitCostAmount");
 	totalCostSpan.data("value", totalCost);
