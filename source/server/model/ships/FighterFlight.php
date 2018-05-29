@@ -51,8 +51,12 @@
             $this->userid = (int)$userid;
             $this->name = $name;
             $this->slot = $slot;
+		
+		//enhancements
+		Enhancements::setEnhancements($this);
         }
         
+	    
         private $autoid = 1;
         
 	   
