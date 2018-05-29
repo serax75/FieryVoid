@@ -18,6 +18,7 @@ class Enhancements{
 	}	
   } //endof function setEnhancementOptions
 
+	
   public static function setEnhancementOptionsShip($ship){ 	  
 	  //Improved Engine (official): +1 Thrust, cost: new rating *5, limit: up to +50%
 	  $enhID = 'IMPR_ENG';
@@ -34,7 +35,7 @@ class Enhancements{
 		  }  
 		  if($strongestValue > 0){ //Engine actually exists to be enhanced!
 			  $enhPrice = max(1,$strongestValue*5);	  
-			  $enhPriceStep = ceil($enhPrice*0.1); //shouldn't be linear, but let's simplify
+			  $enhPriceStep = 5; 
 			  $enhLimit = ceil($strongestValue/2);	  
 			  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
 		  }
