@@ -34,9 +34,14 @@
 					if($ship->faction != $faction){
 						continue;
 					}
+									
 					    foreach ($ship->systems as $system){
 						$system->beforeTurn($ship, 0, 0);
 					    }
+					
+
+					//enhancements (for fleet selection)
+					Enhancements::setEnhancements($ship);
         
 					if (!isset($ships[$ship->faction])){
 						$ships[$ship->faction] = array();
