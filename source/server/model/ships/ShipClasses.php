@@ -72,7 +72,7 @@
 	    $this->fillLocationsGUI();//so called shots work properly
 		
 		//enhancements
-		Enhancements::setEnhancements($this);
+		//Enhancements::setEnhancements($this);
         }
         
         public function getCommonIniModifiers( $gamedata ){ //common Initiative modifiers: speed, criticals
@@ -189,6 +189,9 @@
 	    
         public function onConstructed($turn, $phase, $gamedata)
         {		
+		//enhancements
+		Enhancements::setEnhancements($this);
+		
             foreach ($this->systems as $system){
                 $system->onConstructed($this, $turn, $phase);
                 $this->enabledSpecialAbilities = $system->getSpecialAbilityList($this->enabledSpecialAbilities);
