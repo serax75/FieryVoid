@@ -22,13 +22,43 @@ class Enhancements{
 	  //Improved Sensors (official): +1 Sensors, cost: new rating *5, limit: 1
 	  $enhID = 'IMPR_SENS';
 	  $enhName = 'Improved Sensor Array';
-	  $enhLimit = 1;	
-	  
+	  $enhLimit = 1;	  
 	  //find strongest sensors... which don't need to be called Sensors!
+	  $strongestSystem = null;
+	  $strongestValue = -1;	  
+	  foreach ($this->systems as $system){
+		if ($system instanceof Scanner){
+			if($system->output > $strongestValue) {
+				$strongestValue = $system->output;
+				$strongestSystem = $system;
+			}
+		}
+	}  
+	  if($strongestValue > 0){ //Sensors actually exist to be enhanced!
+		  $enhPrice = max(1,$strongestValue*5);	  
+		  $enhPriceStep = 0;
+		  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+	  }
 	  
-	  $enhPrice = max(1,$flight->offensivebonus*5);	  
-	  $enhPriceStep = 0;
-	  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+	//Improved Engine (official): +1 Thrust, cost: new rating *5, limit: up to +50%
+	  $enhID = 'IMPR_ENG';
+	  $enhName = 'Improved Engine';
+	  //find strongest sensors... which don't need to be called Sensors!
+
+	  $strongestValue = -1;	  
+	  foreach ($this->systems as $system){
+		if ($system instanceof Engine){
+			if($system->output > $strongestValue) {
+				$strongestValue = $system->output;
+			}
+		}
+	}  
+	  if($strongestValue > 0){ //Engine actually exists to be enhanced!
+		  $enhPrice = max(1,$strongestValue*5);	  
+		  $enhPriceStep = ceil($enhPrice*0.2); //shouldn't be linear, but let's simplify
+	  	  $enhLimit = 1;	  
+		  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+	  }
 	  
 
 
