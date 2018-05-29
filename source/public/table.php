@@ -79,7 +79,7 @@ mysql_query("CREATE TABLE tac_enhancements (
     gameid INT,    
     shipid INT,
     enhid VARCHAR(10),
-    PRIMARY KEY(gameid, shipid, enhancementid),
+    PRIMARY KEY(gameid, shipid, enhid),
     numbertaken INT,
     enhname TEXT(50)
  )")
