@@ -25,7 +25,7 @@ class Enhancements{
 		  $enhName = 'Improved Engine';
 		  //find strongest engine.. which don't need to be called Engine!
 		  $strongestValue = -1;	  
-		  foreach ($this->systems as $system){
+		  foreach ($ship->systems as $system){
 			if ($system instanceof Engine){
 				if($system->output > $strongestValue) {
 					$strongestValue = $system->output;
@@ -47,7 +47,7 @@ class Enhancements{
 		  $enhLimit = 1;	  
 		  //find strongest sensors... which don't need to be called Sensors!
 		  $strongestValue = -1;	  
-		  foreach ($this->systems as $system){
+		  foreach ($ship->systems as $system){
 			if ($system instanceof Scanner){
 				if($system->output > $strongestValue) {
 					$strongestValue = $system->output;
@@ -141,7 +141,7 @@ class Enhancements{
 				case 'IMPRENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
 					$strongestSystem = null;
 					$strongestValue = -1;	  
-					foreach ($this->systems as $system){
+					foreach ($ship->systems as $system){
 						if ($system instanceof Engine){
 							if($system->output > $strongestValue) {
 								$strongestValue = $system->output;
@@ -157,7 +157,7 @@ class Enhancements{
 				case 'IMPR_SENS': //Improved Scanner: +1 Scanner output (strongest Scanner)
 					$strongestSystem = null;
 					$strongestValue = -1;	  
-					foreach ($this->systems as $system){
+					foreach ($ship->systems as $system){
 						if ($system instanceof Scanner){
 							if($system->output > $strongestValue) {
 								$strongestValue = $system->output;
