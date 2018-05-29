@@ -42,7 +42,7 @@ class Enhancements{
 	  
 	  //Improved Sensors (official): +1 Sensors, cost: new rating *5, limit: 1
 	  $enhID = 'IMPR_SENS';
-	  if(!($enhID in $ship->enhancementOptionsDisabled)){ //option is not disabled
+	  if(!in_array($enhID, $ship->enhancementOptionsDisabled)){ //option is not disabled
 		  $enhName = 'Improved Sensor Array';
 		  $enhLimit = 1;	  
 		  //find strongest sensors... which don't need to be called Sensors!
@@ -69,7 +69,7 @@ class Enhancements{
   public static function setEnhancementOptionsFighter($flight){
 	  //Improved Targeting Computer (official): +1 OB, cost: old rating *5, limit: 1
 	  $enhID = 'IMPR_OB';	  
-	  if(!($enhID in $ship->enhancementOptionsDisabled)){ //option is not disabled
+	  if(!in_array($enhID, $ship->enhancementOptionsDisabled)){ //option is not disabled
 		  $enhName = 'Improved Targeting Computer';
 		  $enhLimit = 1;	
 		  $enhPrice = max(1,$flight->offensivebonus*5);	  
@@ -79,7 +79,7 @@ class Enhancements{
 	  
 	  //Navigator (official): +1 OB, cost: old rating *5, limit: 1
 	  $enhID = 'NAVIGATOR';	  
-	  if($enhID in $ship->enhancementOptionsEnabled){ //option needs to be specifically enabled
+	  if(in_array($enhID, $ship->enhancementOptionsEnabled){ //option needs to be specifically enabled
 		  $enhName = 'Navigator (missile guidance, +5 Initiative)';
 		  $enhLimit = 1;	
 		  $enhPrice = 10;	  
