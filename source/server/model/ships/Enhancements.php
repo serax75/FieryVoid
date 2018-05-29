@@ -113,7 +113,7 @@ class Enhancements{
 
 	   /*enhancements for fighters
 	   */
-	   private static function setEnhancementsFighter($flight)}
+	   private static function setEnhancementsFighter($flight){
 	   	foreach($flight->enhancementOptions as $entry){			
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
@@ -132,7 +132,7 @@ class Enhancements{
   
 	   /*enhancements for ships
 	   */
-	   private static function setEnhancementsShip($ship)}
+	   private static function setEnhancementsShip($ship){
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
