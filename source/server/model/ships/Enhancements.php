@@ -93,10 +93,10 @@ class Enhancements{
   /*actually enhances unit (sets enhancement options if enhancements themselves are empty)
   */
   public static function setEnhancements($ship){
-	//if( count($ship->enhancementOptions) == 0){ //no enhancement options - this must mean we're in fleet selection and a full list of options is requested
+	if( count($ship->enhancementOptions) == 0){ //no enhancement options - this must mean we're in fleet selection and a full list of options is requested
 		Enhancements::setEnhancementOptions($ship);
 		return; //no point implementing enhancements that aren't there yet!
-	//}
+	}
 
 	//actually implement enhancements - it's more convenient to divide fighters and ships here
 	if($ship instanceof FighterFlight){
