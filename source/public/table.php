@@ -45,6 +45,7 @@ or die(mysql_error());
 
 
 
+
  $table  = 'tac_fireorder';
  $column = 'damageclass';
  $add = mysql_query("ALTER TABLE $table ADD $column text( 25 )");
@@ -71,6 +72,19 @@ or die(mysql_error());
                     WHERE"." gameid = $gameid AND shipid = $damage";
 
 */
+
+
+///ship enhancements - create table statement
+mysql_query("CREATE TABLE tac_enhancements (
+    gameid INT,    
+    shipid INT,
+    enhid VARCHAR(10),
+    PRIMARY KEY(gameid, shipid, enhancementid),
+    numbertaken INT,
+    enhname TEXT(50)
+ )")
+or die(mysql_error());
+
 
 
 
