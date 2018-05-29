@@ -737,6 +737,8 @@ spl_autoload_register(
                 'ballistictorpedo' => '/server/model/weapons/torpedo.php',
                 'balvarin' => '/server/model/ships/centauri/balvarin.php',
                 'balvarix' => '/server/model/ships/centauri/balvarix.php',
+                
+                'enhancements' => '/server/model/ships/Enhancements.php',
                 'baseship' => '/server/model/ships/ShipClasses.php',
                 'baseshipnoaft' => '/server/model/ships/ShipClasses.php',
                 'bashnar' => '/server/model/ships/brakiri/bashnar.php',
