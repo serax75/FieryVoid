@@ -19,7 +19,8 @@ class Enhancements{
   } //endof function setEnhancementOptions
 
   public static function setEnhancementOptionsShip($ship){ 
-	  $ship->enhancementOptions[] = array('TEST', 'ENHNAME',0,1, 1, 1);
+	  $vari = count($ship->systems);
+	  $ship->enhancementOptions[] = array('TEST', "Number of systems is $vari!",0,1, 1, 1);
 	  
 	  //Improved Engine (official): +1 Thrust, cost: new rating *5, limit: up to +50%
 	  $enhID = 'IMPR_ENG';
