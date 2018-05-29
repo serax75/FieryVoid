@@ -22,7 +22,7 @@ class Enhancements{
   */
   public static function setEnhancements($ship){
     //if($ship->id < 1){
-      Enhancements::setEnhancementOptions($ship)
+      Enhancements::setEnhancementOptions($ship);
     //}
     
     
