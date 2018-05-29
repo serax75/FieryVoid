@@ -1318,7 +1318,7 @@ class DBManager {
     }
 	
 	
-    public function getEnhencementsForShip($shipID){
+    private function getEnhencementsForShip($shipID){
 	$toReturn = array();
 	$stmt = $this->connection->prepare( //enhname is solely for raw db readability, no need to actually read it!
             "SELECT 
@@ -1595,7 +1595,20 @@ class DBManager {
             }
             $stmt->close();
         }
-    }
+	    
+	    
+	//get enhancement info
+	foreach ($gamedata->ships as $ship){
+		$enhArray = $this->getEnhencementsForShip($ship->id);//result: array($enhID=>$numbertaken);
+		if( count($enhArray) == 0 ){ //no enhancements! add empty one just to show it's been read
+			$ship->enhancementOptions = array('NONE','-', 0,0,0,0); //[ID,readableName,numberTaken,limit,price,priceStep]
+		}
+		foreach($enhArray as $enhID=>$enhNo){
+			$ship->enhancementOptions = array($enhID,'-', $enhNo,0,0,0);
+		}
+	}
+	    
+    }//endof function getSystemDataForShips
 
     
     public function updateAmmoInfo($shipid, $systemid, $gameid, $firingmode, $ammoAmount){
