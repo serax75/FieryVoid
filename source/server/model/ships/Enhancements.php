@@ -21,7 +21,7 @@ class Enhancements{
   public static function setEnhancementOptionsShip($ship){ 
 	//Improved Engine (official): +1 Thrust, cost: new rating *5, limit: up to +50%
 	  $enhID = 'IMPR_ENG';
-	  if(!($enhID in $ship->enhancementOptionsDisabled)){ //option is not disabled
+	  if(!in_array($enhID, $ship->enhancementOptionsDisabled)){ //option is not disabled
 		  $enhName = 'Improved Engine';
 		  //find strongest engine.. which don't need to be called Engine!
 		  $strongestValue = -1;	  
