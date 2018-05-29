@@ -130,9 +130,9 @@ class DBManager {
 		}
 	}
 	
-	public function submitEnhancement($gameid, $ship, $enhid, $numbertaken, $enhname){	
+	public function submitEnhancement($gameid, $shipid, $enhid, $numbertaken, $enhname){	
 		try{
-			$sql = "INSERT INTO `B5CGM`.`tac_enhancements` VALUES($gameid, $ship, $enhid, $numbertaken, $this->DBEscape($enhname) )";
+			$sql = "INSERT INTO `B5CGM`.`tac_enhancements` VALUES($gameid, $shipid, $enhid, $numbertaken, $this->DBEscape($enhname) )";
 			$this->insert($sql);
 		}catch(Exception $e) {
 			$this->endTransaction(true);
