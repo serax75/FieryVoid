@@ -116,21 +116,29 @@ class DBManager {
     }
 	
 	
-	public function submitShip($gameid, $ship, $userid){
-	
+	public function submitShip($gameid, $ship, $userid){	
 		try{
 			$sql = "INSERT INTO `B5CGM`.`tac_ship` VALUES(null, $userid, $gameid, '".$this->DBEscape($ship->name)."', '".$ship->phpclass."', 0, 0, 0, 0, 0, $ship->slot)";
-            //   Debug::log($sql);
-            $id = $this->insert($sql);
-            return $id;
-			//$sql = "INSERT INTO `B5CGM`.`tac_iniative` VALUES($gameid, $id, 0, 0)";
-            //$this->insert($sql);			
-			
+		    $id = $this->insert($sql);
+		    return $id;
+				//$sql = "INSERT INTO `B5CGM`.`tac_iniative` VALUES($gameid, $id, 0, 0)";
+		    //$this->insert($sql);			
+
+			}catch(Exception $e) {
+				$this->endTransaction(true);
+		    throw $e;
+		}
+	}
+	
+	public function submitEnhancement($gameid, $ship, $enhid, $numbertaken, $enhname){	
+		try{
+			$sql = "INSERT INTO `B5CGM`.`tac_enhancements` VALUES($gameid, $ship, $enhid, $numbertaken, $this->DBEscape($enhname) )";
+			$this->insert($sql);
 		}catch(Exception $e) {
 			$this->endTransaction(true);
-            throw $e;
-        }
-	}
+			throw $e;
+		}
+	} //endof function submitEnhancement
 
 
     public function submitAdaptiveArmour($gameid, $shipid){
@@ -579,10 +587,7 @@ class DBManager {
     }
     
     public function submitDamages($gameid, $turn, $damages){
-        
         try {
-            
-    
             foreach ($damages as $damage){
                                     
                 $des = ($damage->destroyed) ? 1 : 0;
@@ -625,8 +630,6 @@ class DBManager {
         $obj = array();
         $id;
 
-
-
         usort($damages, 
             function($a, $b){
                 if ($a->fireorderid !== $b->fireorderid){
@@ -634,7 +637,6 @@ class DBManager {
                 }
             }
         );
-
 
         foreach ($damages as $damage){
             if (isset($id)){
@@ -655,7 +657,6 @@ class DBManager {
             $id = $damage->fireorderid;
               //debug::log("setting id to ".$id);
         }
-
 
         foreach ($obj as $key => $value){
             if ($key != "pulse"){
@@ -685,6 +686,7 @@ class DBManager {
         }
     }
     
+	
     public function submitIniative($gameid, $turn, $ships){
         
         try {
@@ -701,6 +703,7 @@ class DBManager {
     
     }
     
+	
     public function updatePlayerStatus($gameid, $userid, $phase, $turn, $slots = null){
         try {
             $sql = "UPDATE `B5CGM`.`tac_playeringame` SET `lastturn` = $turn, `lastphase` = $phase, `lastactivity` = NOW() WHERE"
@@ -993,8 +996,7 @@ class DBManager {
            
     }
     
-    public function getSlotsInGame($gameid){
-        
+    public function getSlotsInGame($gameid){        
         $slots = array();
         
         $stmt = $this->connection->prepare("
@@ -1132,8 +1134,6 @@ class DBManager {
         
         $endtime = time();  
         Debug::log("GETTING SHIPS - GAME: $gamedata->id Fetching gamedata took " . ($endtime - $starttime) . " seconds.");
-        
-        
     }
 
     public function getAdaptiveArmourSettings($gamedata){
@@ -1314,10 +1314,36 @@ class DBManager {
             
                 
             $stmt->close();
-        }
-        
-        
+        }    
     }
+	
+	
+    public function getEnhencementsForShip($shipID){
+	$toReturn = array();
+	$stmt = $this->connection->prepare( //enhname is solely for raw db readability, no need to actually read it!
+            "SELECT 
+                enhid, numbertaken 
+            FROM 
+                tac_enhancements 
+            WHERE 
+                shipid = ?
+            "
+        );
+
+        if ($stmt)
+        {
+            $stmt->bind_param('i', $shipID);
+            $stmt->bind_result($enhID, $numbertaken);
+            $stmt->execute();
+            while ($stmt->fetch())
+            {
+		    $toReturn[] = array($enhID=>$numbertaken);
+            }
+        }
+	    
+	    return $toReturn;
+    } //endof function getEnhencementsForShip
+	
     
     private function getEWForShips($gamedata){
         
@@ -1348,9 +1374,7 @@ class DBManager {
                 );
             }
 
-        }
-        
-        
+        }    
     }
     
 	/* original version */ 
@@ -2125,6 +2149,15 @@ class DBManager {
                     gameid = ?"
             );
 			$this->executeGameDeleteStatement($stmt, $ids);
+		
+            $stmt = $this->connection->prepare(
+                "DELETE FROM 
+                    tac_enhancements
+                WHERE
+                    gameid = ?"
+            );
+	    $this->executeGameDeleteStatement($stmt, $ids);
+		
         }
         catch(Exception $e) {
             throw $e;
