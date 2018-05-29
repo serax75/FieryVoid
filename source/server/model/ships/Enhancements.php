@@ -79,7 +79,7 @@ class Enhancements{
 	  
 	  //Navigator (official): +1 OB, cost: old rating *5, limit: 1
 	  $enhID = 'NAVIGATOR';	  
-	  if(in_array($enhID, $ship->enhancementOptionsEnabled){ //option needs to be specifically enabled
+	  if(in_array($enhID, $ship->enhancementOptionsEnabled)){ //option needs to be specifically enabled
 		  $enhName = 'Navigator (missile guidance, +5 Initiative)';
 		  $enhLimit = 1;	
 		  $enhPrice = 10;	  
