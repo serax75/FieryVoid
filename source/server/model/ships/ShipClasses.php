@@ -186,7 +186,7 @@
 	    
         public function onConstructed($turn, $phase, $gamedata)
         {
-		//enhancements
+		//enhancements (in game, NOT fleet selection!)
 		Enhancements::setEnhancements($this);
 		
             foreach ($this->systems as $system){
