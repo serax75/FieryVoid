@@ -55,6 +55,8 @@
         public $movement = array();
 	    
 	    public $enhancementOptions = array(); //ID,readableName,numberTaken,limit,price,priceStep
+	    public $enhancementOptionsEnabled = array(); //enabled non-standard options - just IDs
+	    public $enhancementOptionsDisabled = array(); //disabled standard options - jsut IDs
         
 	    protected $advancedArmor = false; //set to true if ship is equipped with advanced armor!
 	    
