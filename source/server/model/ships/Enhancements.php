@@ -129,16 +129,12 @@ class Enhancements{
 	   /*enhancements for ships
 	   */
 	   private static function setEnhancementsShip($ship){
-//$ship->name = count($ship->enhancementOptions[0][2]);   
-//$ship->name = implode("/", $ship->enhancementOptions[0][2]);   
-//$ship->name = $ship->enhancementOptions[0][0] . '/' . $ship->enhancementOptions[0][1] . '/' .$ship->enhancementOptions[0][2] . '/' .$ship->enhancementOptions[0][3] . '/' .$ship->enhancementOptions[0][4] . '/' .$ship->enhancementOptions[0][5] ;   
-//return;
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
 			$enhCount = $entry[2];
 			if($enhCount > 0) switch ($enhID) {
-				case 'IMPRENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
+				case 'IMPR_ENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
 					$strongestSystem = null;
 					$strongestValue = -1;	  
 					foreach ($ship->systems as $system){
