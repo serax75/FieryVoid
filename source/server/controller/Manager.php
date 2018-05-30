@@ -883,14 +883,11 @@ class Manager{
     }
     
     private static function getShipsFromJSON($json, $gameid){
-
         $ships = array();
         $array = json_decode($json, true);
-        if (!is_array($array))
-			return $ships;
+        if (!is_array($array)) return $ships;
 			
-        foreach ($array as $value) {
-                    
+        foreach ($array as $value) {                    
             $movements = array();
             if (is_array($value["movement"])){
                 foreach($value["movement"] as $i=>$move){
@@ -958,6 +955,9 @@ class Manager{
             if ($ship instanceof WhiteStar){
                 $ship->armourSettings = $value["armourSettings"];
             }
+		
+	    //unit enhancements
+		$ship->enhancementOptions = $value["enhancementOptions"];
 
             
             foreach($value["systems"] as $i=>$system){
