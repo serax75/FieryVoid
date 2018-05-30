@@ -1593,10 +1593,9 @@ class DBManager {
         }
 	    
 	    
-	//get enhancement info
-/* TEST	    
+	//get enhancement info   
 	foreach ($gamedata->ships as $ship){
-		$enhArray = $this->getEnhencementsForShip($ship->id);//result: array($enhID=>$numbertaken);
+		$enhArray = array();//$this->getEnhencementsForShip($ship->id);//result: array($enhID=>$numbertaken);
 		if( count($enhArray) == 0 ){ //no enhancements! add empty one just to show it's been read
 			$ship->enhancementOptions = array('NONE','-', 0,0,0,0); //[ID,readableName,numberTaken,limit,price,priceStep]
 		}
@@ -1604,7 +1603,7 @@ class DBManager {
 			$ship->enhancementOptions = array($enhID,'-', $enhNo,0,0,0);
 		}
 	}
-*/	    
+	    
     }//endof function getSystemDataForShips
 
     
