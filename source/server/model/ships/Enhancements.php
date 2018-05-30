@@ -147,7 +147,7 @@ class Enhancements{
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
 /*TEST*/						
-						$ship->name = $enhID. $enhCount;
+						$ship->name = $entry[0].'/'.$entry[1].'/'.$entry[2];
 						$ship->forwardDefense = 1;
 						$ship->sideDefense = $enhCount;
 						//$strongestSystem->output =+ $enhCount;
