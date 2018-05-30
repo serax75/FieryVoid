@@ -94,8 +94,6 @@ class Enhancements{
   /*actually enhances unit (sets enhancement options if enhancements themselves are empty)
   */
   public static function setEnhancements($ship){
-/*TEST
-
 	//actually implement enhancements - it's more convenient to divide fighters and ships here
 	if($ship instanceof FighterFlight){
 		Enhancements::setEnhancementsFighter($ship);
@@ -107,7 +105,6 @@ class Enhancements{
 	$ship->enhancementOptions = array();
 	$ship->enhancementOptionsEnabled = array();
 	$ship->enhancementOptionsDisabled = array();
-*/	
   } //endof function setEnhancements
 
 	   /*enhancements for fighters
