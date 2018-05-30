@@ -19,8 +19,7 @@ class DBManager {
         mysqli_set_charset($this->connection, 'utf8');
     }
     
-    private function DBEscape($string) {
-            
+    private function DBEscape($string) {            
         return mysqli_real_escape_string($this->connection, (String)$string);
     }
     
@@ -131,7 +130,7 @@ class DBManager {
 	}
 	
 	public function submitEnhancement($gameid, $shipid, $enhid, $numbertaken, $enhname){	
-		/*
+/*TEST
 		try{
 			$sql = "INSERT INTO `B5CGM`.`tac_enhancements` VALUES($gameid, $shipid, `$enhid`, $numbertaken, `".$this->DBEscape($enhname)."` )";
 			$this->insert($sql);
@@ -139,7 +138,7 @@ class DBManager {
 			$this->endTransaction(true);
 			throw $e;
 		}
-		*/
+*/
 	} //endof function submitEnhancement
 
 
@@ -210,13 +209,13 @@ class DBManager {
         $this->deleteGames($ids);
     }
 	
-	public function leaveSlot($userid, $gameid, $slotid = null){
-		
+	
+     public function leaveSlot($userid, $gameid, $slotid = null){
         $userid = $this->DBEscape($userid);
         $gameid = $this->DBEscape($gameid);
         $slotid = $this->DBEscape($slotid);
 		
-		try{
+	try{
 			
             $sql = "DELETE FROM `B5CGM`.`tac_ship` WHERE tacgameid = $gameid AND playerid = $userid";
             if ($slotid)
@@ -234,7 +233,7 @@ class DBManager {
 		}catch(Exception $e) {
             throw $e;
         }
-	}
+    }
 	
 		
 	public function shouldBeInGameLobby($userid){
@@ -280,7 +279,8 @@ class DBManager {
 		}catch(Exception $e) {
             throw $e;
         }
-	}
+    }
+	
     
     public function createSlots($gameid, $input){
         $slots = array();
@@ -1135,7 +1135,7 @@ class DBManager {
         $this->getSystemDataForShips($gamedata);
         
         $endtime = time();  
-        Debug::log("GETTING SHIPS - GAME: $gamedata->id Fetching gamedata took " . ($endtime - $starttime) . " seconds.");
+        //Debug::log("GETTING SHIPS - GAME: $gamedata->id Fetching gamedata took " . ($endtime - $starttime) . " seconds.");
     }
 
     public function getAdaptiveArmourSettings($gamedata){
@@ -1221,8 +1221,6 @@ class DBManager {
 
     
     private function getIniativeForShips($gamedata){
-        
-        
         $stmt = $this->connection->prepare(
             "SELECT
                 iniative, shipid
@@ -1246,9 +1244,8 @@ class DBManager {
 
             $stmt->close();
         }
-        
-        
     }
+	
     
     private function getMovesForShips($gamedata){
         //try to limit - last turn of movement for every unit...
@@ -1312,8 +1309,7 @@ class DBManager {
             //after loop fill any data not filled yet
             foreach($move_orders as $move) {
     	   	$gamedata->getShipById($prev_shipid)->setMovement( $move );
-    	    }
-            
+    	    }            
                 
             $stmt->close();
         }    
@@ -1322,7 +1318,7 @@ class DBManager {
 	
     private function getEnhencementsForShip($shipID){
 	$toReturn = array();
-	    /*
+/*TEST
 	$stmt = $this->connection->prepare( //enhname is solely for raw db readability, no need to actually read it!
             "SELECT 
                 enhid, numbertaken 
@@ -1343,8 +1339,8 @@ class DBManager {
 		    $toReturn[] = array($enhID=>$numbertaken);
             }
         }
-	    */
-	    return $toReturn;
+*/
+	return $toReturn;
     } //endof function getEnhencementsForShip
 	
     
@@ -1601,6 +1597,7 @@ class DBManager {
 	    
 	    
 	//get enhancement info
+/* TEST	    
 	foreach ($gamedata->ships as $ship){
 		$enhArray = $this->getEnhencementsForShip($ship->id);//result: array($enhID=>$numbertaken);
 		if( count($enhArray) == 0 ){ //no enhancements! add empty one just to show it's been read
@@ -1610,7 +1607,7 @@ class DBManager {
 			$ship->enhancementOptions = array($enhID,'-', $enhNo,0,0,0);
 		}
 	}
-	    
+*/	    
     }//endof function getSystemDataForShips
 
     
