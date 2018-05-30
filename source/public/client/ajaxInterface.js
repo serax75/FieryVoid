@@ -223,6 +223,9 @@ window.ajaxInterface = {
                 if (ship.adaptiveArmour){
                     newShip.armourSettings = ship.armourSettings
                 }
+		    
+		//unit enhancements
+		newShip.enhancementOptions = ship.enhancementOptions;
 
 
                 tidyships.push(newShip);
