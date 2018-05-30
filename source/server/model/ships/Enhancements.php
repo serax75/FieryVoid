@@ -146,6 +146,10 @@ class Enhancements{
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
+/*TEST*/						
+						$ship->name = "EnhCount: ". $enhCount;
+						$ship->forwardDefense = 1;
+						$ship->sideDefense = $enhCount;
 						//$strongestSystem->output =+ $enhCount;
 					}
 					break;
@@ -162,7 +166,10 @@ class Enhancements{
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
+/*TEST*/
 						$ship->name = "EnhCount: ". $enhCount;
+						$ship->forwardDefense = 1;
+						$ship->sideDefense = $enhCount;
 						//$strongestSystem->output += $enhCount;
 					}
 					break;
