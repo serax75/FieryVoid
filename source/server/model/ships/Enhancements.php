@@ -131,6 +131,7 @@ class Enhancements{
 	   private static function setEnhancementsShip($ship){
 $ile = count($ship->enhancementOptions);   
 $ship->name = $ile;   
+return;
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
