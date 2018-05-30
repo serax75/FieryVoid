@@ -129,6 +129,8 @@ class Enhancements{
 	   /*enhancements for ships
 	   */
 	   private static function setEnhancementsShip($ship){
+$ile = count($ship->enhancementOptions);   
+$ship->name = $ile;   
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
@@ -147,7 +149,7 @@ class Enhancements{
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
 /*TEST*/						
-						$ship->name = $entry[0].'/'.$entry[1].'/'.$entry[2][0].':'.$entry[2][1];
+						$ship->name = $entry[0].'/'.$entry[1].'/'.$strongestValue;
 						$ship->forwardDefense = 1;
 						$ship->sideDefense = $enhCount;
 						//$strongestSystem->output =+ $enhCount;
