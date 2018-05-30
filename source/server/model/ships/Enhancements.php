@@ -131,8 +131,8 @@ class Enhancements{
 	   private static function setEnhancementsShip($ship){
 //$ship->name = count($ship->enhancementOptions[0][2]);   
 //$ship->name = implode("/", $ship->enhancementOptions[0][2]);   
-$ship->name = $ship->enhancementOptions[0][0] . '/' . $ship->enhancementOptions[0][1] . '/' .$ship->enhancementOptions[0][2] . '/' .$ship->enhancementOptions[0][3] . '/' .$ship->enhancementOptions[0][4] . '/' .$ship->enhancementOptions[0][5] ;   
-return;
+//$ship->name = $ship->enhancementOptions[0][0] . '/' . $ship->enhancementOptions[0][1] . '/' .$ship->enhancementOptions[0][2] . '/' .$ship->enhancementOptions[0][3] . '/' .$ship->enhancementOptions[0][4] . '/' .$ship->enhancementOptions[0][5] ;   
+//return;
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
@@ -150,11 +150,7 @@ return;
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
-/*TEST*/						
-						$ship->name = $entry[0].'/'.$entry[1].'/'.$strongestValue;
-						$ship->forwardDefense = 1;
-						$ship->sideDefense = $enhCount;
-						//$strongestSystem->output =+ $enhCount;
+						$strongestSystem->output =+ $enhCount;
 					}
 					break;
 					
@@ -170,13 +166,7 @@ return;
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
-/*TEST*/
-						/*
-						$ship->name = "EnhCount: ". $enhCount;
-						$ship->forwardDefense = 1;
-						$ship->sideDefense = $enhCount;
-						*/
-						//$strongestSystem->output += $enhCount;
+						$strongestSystem->output += $enhCount;
 					}
 					break;
 				
