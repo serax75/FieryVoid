@@ -404,20 +404,15 @@ class Manager{
                 if ($ship->userid == $gamedata->forPlayer){
                     $id = self::$dbManager->submitShip($gamedata->id, $ship, $gamedata->forPlayer);
                     
-		    //unit enhancements
-			$enhCount = 0;
-			foreach($ship->enhancementOptions as $enhancementEntry){ //ID,readableName,numberTaken,limit,price,priceStep
-				$enhID = $enhancementEntry[0];
-				$enhName = $enhancementEntry[1];
-				$enhNo = $enhancementEntry[2];
-				if ($enhNo > 0){ //actuallly taken
-					$enhCount++;
-					self::$dbManager->submitEnhancement($gamedata->id, $id, $enhID, $enhNo, $enhName);
-				}
+		//unit enhancements
+		foreach($ship->enhancementOptions as $enhancementEntry){ //ID,readableName,numberTaken,limit,price,priceStep
+			$enhID = $enhancementEntry[0];
+			$enhName = $enhancementEntry[1];
+			$enhNo = $enhancementEntry[2];
+			if ($enhNo > 0){ //actuallly taken
+				self::$dbManager->submitEnhancement($gamedata->id, $id, $enhID, $enhNo, $enhName);
 			}
-		    if( $enhCount == 0 ){ //no enhancements taken - put in appropriate info, no entries is an error!
-			self::$dbManager->submitEnhancement($gamedata->id, $id, "NONE", 0, "NO ENHANCEMENTS TAKEN");
-		    }
+		}
 			
 			
                     // Check if ship uses variable flight size
