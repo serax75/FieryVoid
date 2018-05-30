@@ -1316,7 +1316,6 @@ class DBManager {
 	
     private function getEnhencementsForShip($shipID){
 	$toReturn = array();
-/*TEST
 	$stmt = $this->connection->prepare( //enhname is solely for raw db readability, no need to actually read it!
             "SELECT 
                 enhid, numbertaken 
@@ -1337,7 +1336,7 @@ class DBManager {
 		    $toReturn[] = array($enhID=>$numbertaken);
             }
         }
-*/
+
 	return $toReturn;
     } //endof function getEnhencementsForShip
 	
