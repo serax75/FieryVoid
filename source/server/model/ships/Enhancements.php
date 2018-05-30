@@ -146,7 +146,7 @@ class Enhancements{
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
-						$strongestSystem->output =+ $enhCount;
+						$strongestSystem->output += $enhCount;
 					}
 					break;
 					
