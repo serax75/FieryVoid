@@ -75,7 +75,7 @@ class Enhancements{
 		  $enhLimit = 1;	
 		  $enhPrice = max(1,$flight->offensivebonus*5);	  
 		  $enhPriceStep = 0;
-		  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+		  $flight->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
 	  }
 	  
 	  //Navigator (official): +1 OB, cost: old rating *5, limit: 1
@@ -85,7 +85,7 @@ class Enhancements{
 		  $enhLimit = 1;	
 		  $enhPrice = 10;	  
 		  $enhPriceStep = 0;
-		  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+		  $flight->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
 	  }
   } //endof function setEnhancementOptionsFighter
 	    
