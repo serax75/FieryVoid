@@ -129,9 +129,9 @@ class Enhancements{
 	   /*enhancements for ships
 	   */
 	   private static function setEnhancementsShip($ship){
-$ship->name = count($ship->enhancementOptions[0][2]);   
+//$ship->name = count($ship->enhancementOptions[0][2]);   
 //$ship->name = implode("/", $ship->enhancementOptions[0][2]);   
-//$ship->name = $ship->enhancementOptions[0][1] . '/' .$ship->enhancementOptions[0][2] . '/' .$ship->enhancementOptions[0][3] . '/' .$ship->enhancementOptions[0][4] . '/' .$ship->enhancementOptions[0][5] ;   
+$ship->name = $ship->enhancementOptions[0][0] . '/' . $ship->enhancementOptions[0][1] . '/' .$ship->enhancementOptions[0][2] . '/' .$ship->enhancementOptions[0][3] . '/' .$ship->enhancementOptions[0][4] . '/' .$ship->enhancementOptions[0][5] ;   
 return;
 	   	foreach($ship->enhancementOptions as $entry){
 			//ID,readableName,numberTaken,limit,price,priceStep
