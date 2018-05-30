@@ -162,6 +162,7 @@ class Enhancements{
 						}
 					}  
 					if($strongestValue > 0){ //Engine actually exists to be enhanced!
+						$ship->name = "EnhCount: ". $enhCount;
 						//$strongestSystem->output += $enhCount;
 					}
 					break;
