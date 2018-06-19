@@ -128,7 +128,8 @@ class Enhancements{
 			$enhDescription = $entry[1];
 			if($enhCount > 0) {
 				if($flight->enhancementTooltip == "") $flight->enhancementTooltip = "Enhancements:";
-				$flight->enhancementTooltip .= "\n$enhDescription (x$enhCount)";
+				$flight->enhancementTooltip .= "\n$enhDescription";
+				if ($enhCount>1) $ship->enhancementTooltip .= " (x$enhCount)";
 				switch ($enhID) { 
 					case 'IMPR_OB': //Improved Targeting Computer: +1 OB
 						$flight->offensivebonus += $enhCount;
@@ -153,7 +154,8 @@ class Enhancements{
 			$enhDescription = $entry[1];
 			if($enhCount > 0) {
 				if($ship->enhancementTooltip == "") $ship->enhancementTooltip = "Enhancements:";
-				$ship->enhancementTooltip .= "\n$enhDescription (x$enhCount)";
+				$ship->enhancementTooltip .= "\n$enhDescription";
+				if ($enhCount>1) $ship->enhancementTooltip .= " (x$enhCount)";
 			        switch ($enhID) {
 					case 'IMPR_ENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
 						$strongestSystem = null;
