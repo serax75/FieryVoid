@@ -1596,12 +1596,12 @@ class DBManager {
    
 	//get enhancement info   
 	foreach ($gamedata->ships as $ship){
-		$enhArray = $this->getEnhencementsForShip($ship->id);//result: array($enhID=>$numbertaken);
+		$enhArray = $this->getEnhencementsForShip($ship->id);//result: array($enhID,$numbertaken,$readablename);
 		if( count($enhArray) == 0 ){ //no enhancements! add empty one just to show it's been read
 			$ship->enhancementOptions[] = array('NONE','-', 0,0,0,0); //[ID,readableName,numberTaken,limit,price,priceStep]
 		}
 		foreach($enhArray as $entry){
-			$ship->enhancementOptions[] = array($entry[0],'-', $entry[1],0,0,0);
+			$ship->enhancementOptions[] = array($entry[0],$entry[2], $entry[1],0,0,0);
 		}
 	}
 	    
