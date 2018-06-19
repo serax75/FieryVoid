@@ -138,39 +138,43 @@ class Enhancements{
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
 			$enhCount = $entry[2];
-			if($enhCount > 0) switch ($enhID) {
-				case 'IMPR_ENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
-					$strongestSystem = null;
-					$strongestValue = -1;	  
-					foreach ($ship->systems as $system){
-						if ($system instanceof Engine){
-							if($system->output > $strongestValue) {
-								$strongestValue = $system->output;
-								$strongestSystem = $system;
+			$enhDescription = $entry[1];
+			if($enhCount > 0) {
+				if($ship->enhancementTooltip == "") $ship->enhancementTooltip = "Enhancements:";
+				$ship->enhancementTooltip .= "<BR>$enh_description (x$enhCount)";
+			        switch ($enhID) {
+					case 'IMPR_ENG': //Improved Engine: +1 Engine output (strongest Engine), may be taken multiple times
+						$strongestSystem = null;
+						$strongestValue = -1;	  
+						foreach ($ship->systems as $system){
+							if ($system instanceof Engine){
+								if($system->output > $strongestValue) {
+									$strongestValue = $system->output;
+									$strongestSystem = $system;
+								}
 							}
+						}  
+						if($strongestValue > 0){ //Engine actually exists to be enhanced!
+							$strongestSystem->output += $enhCount;
 						}
-					}  
-					if($strongestValue > 0){ //Engine actually exists to be enhanced!
-						$strongestSystem->output += $enhCount;
-					}
-					break;
-					
-				case 'IMPR_SENS': //Improved Scanner: +1 Scanner output (strongest Scanner)
-					$strongestSystem = null;
-					$strongestValue = -1;	  
-					foreach ($ship->systems as $system){
-						if ($system instanceof Scanner){
-							if($system->output > $strongestValue) {
-								$strongestValue = $system->output;
-								$strongestSystem = $system;
+						break;
+
+					case 'IMPR_SENS': //Improved Scanner: +1 Scanner output (strongest Scanner)
+						$strongestSystem = null;
+						$strongestValue = -1;	  
+						foreach ($ship->systems as $system){
+							if ($system instanceof Scanner){
+								if($system->output > $strongestValue) {
+									$strongestValue = $system->output;
+									$strongestSystem = $system;
+								}
 							}
+						}  
+						if($strongestValue > 0){ //Engine actually exists to be enhanced!
+							$strongestSystem->output += $enhCount;
 						}
-					}  
-					if($strongestValue > 0){ //Engine actually exists to be enhanced!
-						$strongestSystem->output += $enhCount;
-					}
-					break;
-				
+						break;
+				}
 			}
 			
 		}
