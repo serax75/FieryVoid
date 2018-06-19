@@ -141,7 +141,7 @@ shipWindowManager = {
             //shipwindow.find(".topbar .valueheader.name").html(ship.name);
 		var shpName = ship.name;
 		var shpTooltip = ship.enhancementTooltip;
-		shipwindow.find(".topbar .valueheader.name").html("<p title=\"" .shpTooltip."\">".ship.name."</p>");
+		shipwindow.find(".topbar .valueheader.name").html("<p title=\"" +shpTooltip+"\">"+shpName+"</p>");
 		//shipwindow.find(".topbar .valueheader.name").html(ship.enhancementTooltip);
             shipwindow.find(".topbar .value.shipclass").html(ship.shipClass);// + " (" + ship.occurence + ")");
         }
