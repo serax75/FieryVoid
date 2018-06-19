@@ -138,8 +138,11 @@ shipWindowManager = {
 
         if(gamedata.turn != 0){
             shipwindow.find(".topbar .value.name").html("");
-            shipwindow.find(".topbar .valueheader.name").html(ship.name);
-		shipwindow.find(".topbar .valueheader.title").html(ship.enhancementTooltip);
+            //shipwindow.find(".topbar .valueheader.name").html(ship.name);
+		var shpName = ship.name;
+		var shpTooltip = ship.enhancementTooltip;
+		shipwindow.find(".topbar .valueheader.name").html("<p title=\"" .shpTooltip."\">".ship.name."</p>");
+		//shipwindow.find(".topbar .valueheader.name").html(ship.enhancementTooltip);
             shipwindow.find(".topbar .value.shipclass").html(ship.shipClass);// + " (" + ship.occurence + ")");
         }
         else{
