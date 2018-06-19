@@ -116,8 +116,8 @@ class Enhancements{
 			$enhCount = $entry[2];
 			$enhDescription = $entry[1];
 			if($enhCount > 0) {
-				if($ship->enhancementTooltip == "") $ship->enhancementTooltip = "Enhancements:";
-				$ship->enhancementTooltip .= "<BR>$enhDescription (x$enhCount)";
+				if($flight->enhancementTooltip == "") $flight->enhancementTooltip = "Enhancements:";
+				$flight->enhancementTooltip .= "<BR>$enhDescription (x$enhCount)";
 				switch ($enhID) { 
 					case 'IMPR_OB': //Improved Targeting Computer: +1 OB
 						$flight->offensivebonus++;
