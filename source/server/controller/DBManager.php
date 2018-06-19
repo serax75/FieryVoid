@@ -1317,9 +1317,9 @@ class DBManager {
 	
     private function getEnhencementsForShip($shipID){
 	$toReturn = array();
-	$stmt = $this->connection->prepare( //enhname is solely for raw db readability, no need to actually read it!
+	$stmt = $this->connection->prepare( //enhname will be used for info tooltip!
             "SELECT 
-                enhid, numbertaken 
+                enhid, numbertaken, enhname
             FROM 
                 tac_enhancements 
             WHERE 
@@ -1330,11 +1330,11 @@ class DBManager {
         if ($stmt)
         {
             $stmt->bind_param('i', $shipID);
-            $stmt->bind_result($enhID, $numbertaken);
+            $stmt->bind_result($enhID, $numbertaken, $description);
             $stmt->execute();
             while ($stmt->fetch())
             {
-		    $toReturn[] = array($enhID,$numbertaken);
+		    $toReturn[] = array($enhID,$numbertaken,$description);
             }
         }
 
