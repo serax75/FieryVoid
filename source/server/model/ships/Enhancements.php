@@ -114,14 +114,19 @@ class Enhancements{
 			//ID,readableName,numberTaken,limit,price,priceStep
 			$enhID = $entry[0];
 			$enhCount = $entry[2];
-			if($enhCount > 0) switch ($enhID) { 
-				case 'IMPR_OB': //Improved Targeting Computer: +1 OB
-					$flight->offensivebonus++;
-					break;
-					
-				case 'NAVIGATOR': //navigator: navigator flag - it activates appropriate segments of code
-					$flight->hasNavigator = true;
-					break;
+			$enhDescription = $entry[1];
+			if($enhCount > 0) {
+				if($ship->enhancementTooltip == "") $ship->enhancementTooltip = "Enhancements:";
+				$ship->enhancementTooltip .= "<BR>$enh_description (x$enhCount)";
+				switch ($enhID) { 
+					case 'IMPR_OB': //Improved Targeting Computer: +1 OB
+						$flight->offensivebonus++;
+						break;
+
+					case 'NAVIGATOR': //navigator: navigator flag - it activates appropriate segments of code
+						$flight->hasNavigator = true;
+						break;
+				}
 			}			
 		}
 	   }//endof function setEnhancementsFighter
