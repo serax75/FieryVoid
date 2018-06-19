@@ -120,7 +120,7 @@ class Enhancements{
 				$flight->enhancementTooltip .= "\n$enhDescription (x$enhCount)";
 				switch ($enhID) { 
 					case 'IMPR_OB': //Improved Targeting Computer: +1 OB
-						$flight->offensivebonus++;
+						$flight->offensivebonus += $enhCount;
 						break;
 
 					case 'NAVIGATOR': //navigator: navigator flag - it activates appropriate segments of code
