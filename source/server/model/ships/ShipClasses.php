@@ -57,6 +57,7 @@
 	    public $enhancementOptions = array(); //ID,readableName,numberTaken,limit,price,priceStep
 	    public $enhancementOptionsEnabled = array(); //enabled non-standard options - just IDs
 	    public $enhancementOptionsDisabled = array(); //disabled standard options - jsut IDs
+	    public $enhancementTooltip = ""; //to be displayed with ship name / class
         
 	    protected $advancedArmor = false; //set to true if ship is equipped with advanced armor!
 	    
