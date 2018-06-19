@@ -62,6 +62,17 @@ class Enhancements{
 		  }
 	  }
 
+	  //Poor Crew (offivcial but modified): -5 Initiative, -1 Engine, -1 Sensors, -1 Reactor power, +1 Profile, +2 to critical results
+	  //cost: -15% of ship cost (second time: -10%)
+	  $enhID = 'POOR_CREW';
+	  if(!in_array($enhID, $ship->enhancementOptionsDisabled)){ //option is not disabled
+		  $enhName = 'Poor Crew';
+		  $enhLimit = 2;	
+		  $enhPrice = -ceil(ship.pointCost*0.15); //-15%	  
+		  $enhPriceStep = -ceil($enhPrice/3); //+5%, for total price of -10% for second level
+		  $ship->enhancementOptions[] = array($enhID, $enhName,0,$enhLimit, $enhPrice, $enhPriceStep);
+	  }
+	  
 	  
 	  
   } //endof function setEnhancementOptionsShip
@@ -131,6 +142,7 @@ class Enhancements{
 		}
 	   }//endof function setEnhancementsFighter
   
+	
 	   /*enhancements for ships
 	   */
 	   private static function setEnhancementsShip($ship){
@@ -174,6 +186,59 @@ class Enhancements{
 							$strongestSystem->output += $enhCount;
 						}
 						break;
+						
+					case 'POOR_CREW': //Poor Crew: -1 Engine, -1 Sensors, -1 Reactor power, +1 Profile, +2 to critical results, -5 Initiative
+						//fixed values
+						$ship->forwardDefense += $enhCount;
+						$ship->sideDefense += $enhCount;
+						$ship->iniativebonus += $enhCount*5;
+						$ship->critRollMod += $enhCount*2;
+						
+						//system mods: Scanner						
+						$strongestSystem = null;
+						$strongestValue = -1;	  
+						foreach ($ship->systems as $system){
+							if ($system instanceof Scanner){
+								if($system->output > $strongestValue) {
+									$strongestValue = $system->output;
+									$strongestSystem = $system;
+								}
+							}
+						}  
+						if($strongestValue > 0){ //Scanner actually exists to be enhanced!
+							$strongestSystem->output -= $enhCount;
+						}
+						//system mods: Engine	
+						$strongestSystem = null;
+						$strongestValue = -1;	  
+						foreach ($ship->systems as $system){
+							if ($system instanceof Engine){
+								if($system->output > $strongestValue) {
+									$strongestValue = $system->output;
+									$strongestSystem = $system;
+								}
+							}
+						}  
+						if($strongestValue > 0){ //Engine actually exists to be enhanced!
+							$strongestSystem->output -= $enhCount;
+						}
+						//system mods: Reactor
+						$strongestSystem = null;
+						$strongestValue = -1000;
+						foreach ($ship->systems as $system){
+							if ($system instanceof Reactor){
+								if($system->output > $strongestValue) {
+									$strongestValue = $system->output;
+									$strongestSystem = $system;
+								}
+							}
+						}  
+						if($strongestSystem != null){ //Reactor actually exists to be enhanced! although it has to ;)
+							$strongestSystem->output -= $enhCount;
+						}
+						
+						break;
+						
 				}
 			}
 			
