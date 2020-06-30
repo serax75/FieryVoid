@@ -15,7 +15,12 @@ class Athena extends BaseShip{
 		$this->limited = 10;
 
         	$this->fighters = array("heavy" => 24, "light" => 12);
+			$this->customFighter = array("Thunderbolt"=>24);
 	        $this->isd = 2261;
+			
+			
+		$this->notes = 'Thunderbolt-capable';
+		$this->notes .= '<br>ALTERNATE UNIVERSE - unit designed for "In ancient times" campaign';
 
 		$this->forwardDefense = 15;
 		$this->sideDefense = 19;

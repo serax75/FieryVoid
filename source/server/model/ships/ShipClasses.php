@@ -7,6 +7,7 @@ class BaseShip {
     public $systems = array();
     public $EW = array();
     public $fighters = array();
+	public $customFighter = array(); //array for fighters with special hangar requirements - see Balvarix/Rutarian for usage
     public $hitChart = array();
     public $notes = '';//notes to be displayed on fleet selection screen
 
@@ -685,6 +686,47 @@ class BaseShip {
     } //end of function getSystemsByName
 
 
+	//defensive system that can affect damage dealing - only one (best) such system will be called
+	//overridden by FighterFlight to get only systems on a fighter actually hit
+	public function getSystemProtectingFromDamage($shooter, $pos, $turn, $weapon, $systemhit){ //$systemhit actually used by fighter flight
+		if ($pos !== null) {
+            $pos = Mathlib::hexCoToPixel($pos);
+        }
+		$chosenSystem = null;
+		$chosenValue=0;
+		if($this instanceOf FighterFlight){ //only subsystems of a particular fighter
+			$listOfPotentialSystems = $systemhit->systems;
+		}else{ //all systems of a ship
+			$listOfPotentialSystems = $this->systems;
+		}		
+        //foreach($this->systems as $system){
+		foreach($listOfPotentialSystems as $system){
+			$value=$system->doesProtectFromDamage();
+            if ($value<1) continue;
+			if ($system->isDestroyed($turn-1)) continue;
+			if ($system->isOfflineOnTurn($turn)) continue;
+
+			//if the system has arcs, check that the position is on arc
+			if(is_int($system->startArc) && is_int($system->endArc)){
+				//get bearing on incoming fire...
+				if($pos!=null){ //firing position is explicitly declared
+					$relativeBearing = $this->getBearingOnPos($pos);
+				}else{ //check from shooter...
+					$relativeBearing = $this->getBearingOnUnit($shooter);
+				}
+				//if not on arc, continue!
+				if (!mathlib::isInArc($relativeBearing, $system->startArc, $system->endArc)){
+					continue;
+				}
+			}
+			if($value>$chosenValue){
+				$chosenSystem = $system;
+				$chosenValue=$value;
+			}
+        }
+		return ($chosenSystem);
+	} //endof getSystemProtectingFromDamage
+	
 
     public function getHitChanceMod($shooter, $pos, $turn, $weapon){
         if ($pos !== null) {
@@ -1838,7 +1880,7 @@ class StarBase extends BaseShip{
         $locToDestroy = $reactor->location;
         $sysArray = array();
 
-        debug::log("killing section: ".$locToDestroy);
+        //debug::log("killing section: ".$locToDestroy);
         foreach ($this->systems as $system){
             if ($system->location == $reactor->location){
                 if (! $system->destroyed){
@@ -1846,14 +1888,32 @@ class StarBase extends BaseShip{
                 }
             }
         }
+		
+		//try to make actual attack to show in log - use Ramming Attack system!				
+		$rammingSystem = $this->getSystemByName("RammingAttack");
+		if($rammingSystem){ //actually exists! - it should on every ship!				
+			$newFireOrder = new FireOrder(
+				-1, "normal", $this->id, $this->id,
+				$rammingSystem->id, -1, $gamedata->turn, 1, 
+				100, 100, 1, 1, 0,
+				0,0,'Plasma',10000
+			);
+			$newFireOrder->pubnotes = "Sub-reactor explosion - section destroyed.";
+			$newFireOrder->addToDB = true;
+			$rammingSystem->fireOrders[] = $newFireOrder;
+		}else{
+			$newFireOrder=null;
+		}
 
         foreach ($sysArray as $system){
             $remaining = $system->getRemainingHealth();
-            $armour = $system->armour;
-            $toDo = $remaining + $armour;
-            $damageEntry = new DamageEntry(-1, $this->id, -1, $gamedata->turn, $system->id, $toDo, $armour, 0, -1, true, false, "", "plasma");
+            $damageEntry = new DamageEntry(-1, $this->id, -1, $gamedata->turn, $system->id, $remaining, 0, 0, -1, true, false, "", "Plasma");
             $damageEntry->updated = true;
-            $system->damage[] = $damageEntry;
+            $system->damage[] = $damageEntry;			
+			if($rammingSystem){ //add extra data to damage entry - so firing order can be identified!
+					$damageEntry->shooterid = $this->id; //additional field
+					$damageEntry->weaponid = $rammingSystem->id; //additional field
+			}
         }
     }
 }
@@ -2001,5 +2061,18 @@ class SmallStarBaseFourSections extends BaseShip{ //just change arcs of sections
     }
 } //end of SmallStarBaseFourSections
 
+
+class SmallStarBaseThreeSections extends SmallStarBaseFourSections{
+
+    public function getLocations(){
+        $locs = array();
+		//I settled for exactly 120 degrees between sections, accepting arc going through half-hex
+        $locs[] = array("loc" => 1, "min" => 270, "max" => 90, "profile" => $this->forwardDefense);
+        $locs[] = array("loc" => 3, "min" => 150, "max" => 330, "profile" => $this->forwardDefense);
+        $locs[] = array("loc" => 4, "min" => 30, "max" => 210, "profile" => $this->forwardDefense);
+
+        return $locs;
+    }
+} //end of StarBaseThreeSections
 
 ?>

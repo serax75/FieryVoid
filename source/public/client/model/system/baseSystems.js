@@ -314,3 +314,41 @@ AdaptiveArmorController.prototype.doIndividualNotesTransfer = function () { //pr
 	}
 	return true;
 };
+
+
+
+
+var DiffuserTendril = function DiffuserTendril(json, ship) {
+    ShipSystem.call(this, json, ship);
+};
+DiffuserTendril.prototype = Object.create(ShipSystem.prototype);
+DiffuserTendril.prototype.constructor = DiffuserTendril;
+var DiffuserTendrilFtr = function DiffuserTendrilFtr(json, ship) {
+    ShipSystem.call(this, json, ship);
+};
+DiffuserTendrilFtr.prototype = Object.create(ShipSystem.prototype);
+DiffuserTendrilFtr.prototype.constructor = DiffuserTendrilFtr;
+var EnergyDiffuser = function EnergyDiffuser(json, ship) {
+    ShipSystem.call(this, json, ship);
+};
+EnergyDiffuser.prototype = Object.create(ShipSystem.prototype);
+EnergyDiffuser.prototype.constructor = EnergyDiffuser;
+
+
+var SelfRepair = function SelfRepair(json, ship) {
+    ShipSystem.call(this, json, ship);
+};
+SelfRepair.prototype = Object.create(ShipSystem.prototype);
+SelfRepair.prototype.constructor = SelfRepair;
+
+
+var BioDrive = function BioDrive(json, ship) {
+    Engine.call(this, json, ship);
+};
+BioDrive.prototype = Object.create(Engine.prototype);
+BioDrive.prototype.constructor = BioDrive;
+var BioThruster = function BioThruster(json, ship) {
+    ShipSystem.call(this, json, ship);
+};
+BioThruster.prototype = Object.create(ShipSystem.prototype);
+BioThruster.prototype.constructor = BioThruster;
